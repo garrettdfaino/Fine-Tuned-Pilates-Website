@@ -13,6 +13,7 @@ interface FormData {
   studio_name: string;
   city: string;
   state: string;
+  phone_number: string;
   email: string;
   service: string;
   message: string;
@@ -32,6 +33,7 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
     studio_name: '',
     city: '',
     state: '',
+    phone_number: '',
     email: '',
     service: '',
     message: ''
@@ -58,6 +60,12 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
 
     if (!formData.state) {
       newErrors.state = 'State is required';
+    }
+
+    if (!formData.phone_number.trim()) {
+      newErrors.phone_number = 'Phone number is required';
+    } else if (!/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(formData.phone_number)) {
+      newErrors.phone_number = 'Please enter a valid phone number';
     }
 
     if (!formData.email.trim()) {
@@ -119,6 +127,7 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
             studio_name: '',
             city: '',
             state: '',
+            phone_number: '',
             email: '',
             service: '',
             message: ''
@@ -212,7 +221,7 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
                 )}
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-theme-secondary/80 mb-1">
                     City
@@ -253,23 +262,43 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
                 )}
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-theme-secondary/80 mb-1">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={`w-full px-3 py-2 rounded-lg bg-theme-background/50 border ${
-                    errors.email ? 'border-red-500' : 'border-theme-secondary/10'
-                  } text-theme-secondary focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent`}
-                  placeholder="studio@example.com"
-                />
-                {errors.email && (
-                  <p className="mt-1 text-sm text-red-500">{errors.email}</p>
-                )}
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-theme-secondary/80 mb-1">
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone_number"
+                    value={formData.phone_number}
+                    onChange={handleChange}
+                    className={`w-full px-3 py-2 rounded-lg bg-theme-background/50 border ${
+                      errors.phone_number ? 'border-red-500' : 'border-theme-secondary/10'
+                    } text-theme-secondary focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent`}
+                    placeholder="(123) 456-7890"
+                  />
+                  {errors.phone_number && (
+                    <p className="mt-1 text-sm text-red-500">{errors.phone_number}</p>
+                  )}
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-theme-secondary/80 mb-1">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className={`w-full px-3 py-2 rounded-lg bg-theme-background/50 border ${
+                      errors.email ? 'border-red-500' : 'border-theme-secondary/10'
+                    } text-theme-secondary focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent`}
+                    placeholder="studio@example.com"
+                  />
+                  {errors.email && (
+                    <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+                  )}
+                </div>
               </div>
 
               <div>
