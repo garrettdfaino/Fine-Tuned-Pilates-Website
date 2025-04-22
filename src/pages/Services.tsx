@@ -94,7 +94,7 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
           icon: Handshake,
           services: [
             "Comprehensive reformer inspection and safety checks",
-            "Deep cleaning and sanitization of all equipment",
+            "Cleaning of rails, wheels and equipment",
             "Evaluation of springs, carriage wheels, straps, and ropes",
             "Secure fastening of bolts and nuts",
             "Wheel alignment and lubrication",
