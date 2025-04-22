@@ -8,7 +8,6 @@ const teamMembers = [
     role: "Founder & Engineer",
     image: "https://github.com/garrettdfaino/Pictures-for-FTP/blob/main/garrett-1-2.JPG?raw=true",
     bio: "With years of hands-on experience working on Pilates equipment and a solid Mechanical Engineering background, Garrett is the driving force behind our operation. By combining technical expertise with a genuine passion for building strong customer relationships, Garrett ensures every client feels valued and supported. Always focused on innovation and growth, Garrett leads the team with strategic insight and a practical, results-oriented approach.",
-    certification: "Certified by the National Pilates Certification Program"
   },
   {
     name: "Kathy Jannino-Faino",
@@ -22,7 +21,6 @@ const teamMembers = [
     role: "Service Technician",
     image: "https://github.com/garrettdfaino/Pictures-for-FTP/blob/main/dad-1.jpg?raw=true",
     bio: "With 17 years of experience, Dennis has expertly managed the assembly, installation, maintenance, and relocation of our studios—home to the renowned STOTT and Balanced Body apparatus. His technical expertise and attention to detail ensure that every facility operates seamlessly, supporting our commitment to excellence.",
-    certification: "Certified by the National Pilates Certification Program"
   }
 ];
 
