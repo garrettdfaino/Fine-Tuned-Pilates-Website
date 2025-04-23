@@ -1,28 +1,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Star } from 'lucide-react';
 
 const testimonials = [
   {
-    name: "Sarah Johnson",
-    role: "Studio Owner, Pilates Plus",
-    text: "Fine Tuned Pilates transformed our business operations and equipment maintenance. Revenue is up 40% since implementing their recommendations."
-  },
-  {
-    name: "Michael Chen",
-    role: "Director, Core Strength Studio",
-    text: "Their equipment maintenance service is unmatched. Our studio has never run more smoothly, and their response time is incredible."
-  },
-  {
-    name: "Emma Williams",
-    role: "Owner, Pure Pilates",
-    text: "The business consulting services helped us scale from one location to three. Their expertise in the Pilates industry is invaluable."
+    name: "Elizabeth O'Rourke",
+    role: "Owner, Studio47",
+    logo: "https://github.com/garrettdfaino/Pictures-for-FTP/blob/main/stuido47.png?raw=true",
+    text: "I have been a studio owner for over 17-years and thought I knew everything about my Pilates equipment. As a studio we pride ourselves on cleanliness and well-maintained equipment; however, Garrett and his team at Fine Tuned Pilates have been an amazing addition to our routine equipment maintenance. They were able to diagnose small issues to make a big impact on the overall performance and longevity of our equipment. Between our two studio locations we have over 23 reformers and 17 Pilates chairs and to have everything running smoothly is imperative for the business operations and the overall client experience. This is a MUST-do for any studio owner!"
   }
 ];
 
 export function Testimonials() {
   return (
-    <section id="testimonials" className="py-16 bg-theme-background">
+    <section id="testimonials" className="py-16 relative bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -33,44 +23,52 @@ export function Testimonials() {
         >
           <h2 className="text-3xl font-bold mb-4 text-theme-secondary">What Studio Owners Say</h2>
           <p className="text-theme-secondary/80 max-w-2xl mx-auto">
-            See how we've helped Pilates studios grow and succeed
+            Discover the difference expert maintenance makes
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2, duration: 0.8 }}
-              className="relative bg-theme-accent p-6 rounded-xl border border-theme-secondary/10 overflow-hidden"
+        <div className="flex justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative p-6 rounded-xl border border-theme-secondary/10 overflow-visible max-w-lg w-full bg-theme-background"
+            style={{
+              boxShadow: '0 0 40px var(--color-primary)',
+            }}
+          >
+            {/* Radial gradient background */}
+            <div 
+              className="absolute inset-0 opacity-10 rounded-xl"
               style={{
-                boxShadow: '0 0 40px var(--color-primary)',
+                background: `radial-gradient(circle at center, var(--color-primary) 0%, transparent 70%)`
               }}
-            >
-              {/* Radial gradient background */}
-              <div 
-                className="absolute inset-0 opacity-10"
-                style={{
-                  background: `radial-gradient(circle at center, var(--color-primary) 0%, transparent 70%)`
-                }}
-              />
-              <div className="relative">
-                <div className="flex items-center mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 text-theme-background" />
-                  ))}
-                </div>
-                <p className="text-theme-background/90 mb-4 text-sm">"{testimonial.text}"</p>
-                <div>
-                  <p className="font-semibold text-theme-background">{testimonial.name}</p>
-                  <p className="text-sm text-theme-background/80">{testimonial.role}</p>
-                </div>
+            />
+            
+            {/* Logo positioned to overlap */}
+            <div className="absolute left-1/2 -top-12 transform -translate-x-1/2">
+              <div className="bg-white p-4 rounded-xl shadow-lg">
+                <img 
+                  src={testimonials[0].logo}
+                  alt={`${testimonials[0].role} logo`}
+                  className="h-16 w-auto rounded-lg"
+                />
               </div>
-            </motion.div>
-          ))}
+            </div>
+
+            <div className="relative pt-8">
+              <div className="relative text-center px-8">
+                <span className="absolute top-0 left-0 text-8xl leading-none text-theme-primary font-serif opacity-90" style={{ transform: 'translate(-50%, -25%)' }}>"</span>
+                <p className="text-theme-secondary text-base leading-relaxed">{testimonials[0].text}</p>
+                <span className="absolute bottom-0 right-0 text-8xl leading-none text-theme-primary font-serif opacity-90" style={{ transform: 'translate(50%, 25%)' }}>"</span>
+              </div>
+              <div className="text-center mt-6">
+                <p className="font-semibold text-theme-secondary">{testimonials[0].name}</p>
+                <p className="text-sm text-theme-secondary/80">{testimonials[0].role}</p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
