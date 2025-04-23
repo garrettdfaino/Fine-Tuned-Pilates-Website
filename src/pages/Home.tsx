@@ -5,6 +5,7 @@ import { SafetyCallout } from '../components/sections/SafetyCallout';
 import { About } from '../components/sections/About';
 import { Services } from '../components/sections/Services';
 import { Team } from '../components/sections/Team';
+import { Testimonials } from '../components/sections/Testimonials';
 
 interface HomeProps {
   setShowContactModal: (show: boolean) => void;
@@ -32,6 +33,7 @@ export function Home({ setShowContactModal }: HomeProps) {
       <About />
       <Services />
       <Team />
+      <Testimonials />
     </>
   );
 }
