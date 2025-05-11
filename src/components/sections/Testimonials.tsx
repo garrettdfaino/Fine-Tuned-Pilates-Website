@@ -5,7 +5,7 @@ const testimonials = [
   {
     name: "Elizabeth O'Rourke",
     role: "Owner, Studio47",
-    logo: "https://github.com/garrettdfaino/Pictures-for-FTP/blob/main/stuido47.png?raw=true",
+    logo: "https://raw.githubusercontent.com/garrettdfaino/Pictures-for-FTP/main/stuido47.png",
     text: "I have been a studio owner for over 17-years and thought I knew everything about my Pilates equipment. As a studio we pride ourselves on cleanliness and well-maintained equipment; however, Garrett and his team at Fine Tuned Pilates have been an amazing addition to our routine equipment maintenance. They were able to diagnose small issues to make a big impact on the overall performance and longevity of our equipment. Between our two studio locations we have over 23 reformers and 17 Pilates chairs and to have everything running smoothly is imperative for the business operations and the overall client experience. This is a MUST-do for any studio owner!"
   }
 ];
