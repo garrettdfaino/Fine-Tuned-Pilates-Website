@@ -13,7 +13,7 @@ export function Footer({ setShowContactModal }: FooterProps) {
           <div>
             <div className="flex items-center space-x-2 mb-6">
               <img 
-                src="https://github.com/garrettdfaino/Pictures-for-FTP/blob/main/Fine%20Tuned%20Pilates_black-cropped.PNG?raw=true"
+                src="https://raw.githubusercontent.com/garrettdfaino/Pictures-for-FTP/main/Fine%20Tuned%20Pilates_black-cropped.PNG"
                 alt="Fine Tuned Pilates"
                 className="h-8 w-auto"
               />
