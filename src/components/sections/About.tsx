@@ -74,7 +74,7 @@ export function About() {
           >
             <div className="aspect-[4/3] rounded-2xl overflow-hidden">
               <img 
-                src="https://github.com/garrettdfaino/Pictures-for-FTP/blob/main/group-1.jpg?raw=true"
+                src="https://raw.githubusercontent.com/garrettdfaino/Pictures-for-FTP/main/group-1.jpg"
                 alt="Pilates Studio Equipment"
                 className="w-full h-full object-cover shadow-xl"
               />
