@@ -81,7 +81,7 @@ export function Header({
           <div className="flex justify-between h-20 items-center">
             <Link to="/" className="flex items-center space-x-3">
               <img 
-                src="https://github.com/garrettdfaino/Pictures-for-FTP/blob/main/Fine%20Tuned%20Pilates_black-cropped.PNG?raw=true"
+                src="https://raw.githubusercontent.com/garrettdfaino/Pictures-for-FTP/main/Fine%20Tuned%20Pilates_black-cropped.PNG"
                 alt="Fine Tuned Pilates"
                 className="h-12 w-auto"
               />
@@ -103,7 +103,7 @@ export function Header({
         <div className="flex justify-between h-20 items-center">
           <Link to="/" className="flex items-center space-x-3">
             <img 
-              src="https://github.com/garrettdfaino/Pictures-for-FTP/blob/main/Fine%20Tuned%20Pilates_black-cropped.PNG?raw=true"
+              src="https://raw.githubusercontent.com/garrettdfaino/Pictures-for-FTP/main/Fine%20Tuned%20Pilates_black-cropped.PNG"
               alt="Fine Tuned Pilates"
               className="h-12 w-auto"
             />
