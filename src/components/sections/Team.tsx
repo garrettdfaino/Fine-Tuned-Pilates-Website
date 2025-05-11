@@ -6,23 +6,23 @@ const teamMembers = [
   {
     name: "Garrett Faino",
     role: "Founder & Engineer",
-    image: "https://github.com/garrettdfaino/Pictures-for-FTP/blob/main/garrett-1-2.JPG?raw=true",
+    image: "https://raw.githubusercontent.com/garrettdfaino/Pictures-for-FTP/main/garrett-1-2.JPG",
     bio: "With years of hands-on experience working on Pilates equipment and a solid Mechanical Engineering background, Garrett is the driving force behind our operation. By combining technical expertise with a genuine passion for building strong customer relationships, Garrett ensures every client feels valued and supported. Always focused on innovation and growth, Garrett leads the team with strategic insight and a practical, results-oriented approach.",
-    certification: "Certified by Body Be Well Pilates - Equipment Maintenace Course"
+    certification: "Certified by the National Pilates Certification Program"
   },
   {
     name: "Kathy Jannino-Faino",
     role: "Industry Strategist & Studio Support Specialist",
-    image: "https://github.com/garrettdfaino/Pictures-for-FTP/blob/main/mom-1.1.JPG?raw=true",
+    image: "https://raw.githubusercontent.com/garrettdfaino/Pictures-for-FTP/main/mom-1.1.JPG",
     bio: "With 17 years of entrepreneurial experience in the Pilates industry, Kathy has managed multiple studios and experienced firsthand the challenges of finding reliable support. After selling her last studio in July 2024, she has shifted her focus from ownership to empowering other studios. Drawing on her deep industry insights and innovative business acumen, Kathy now dedicates herself to ensuring professional service and robust support for every client, bridging the gap she once faced.",
     certification: "Certified by the National Pilates Certification Program"
   },
   {
     name: "Dennis Faino",
     role: "Service Technician",
-    image: "https://github.com/garrettdfaino/Pictures-for-FTP/blob/main/dad-1.jpg?raw=true",
+    image: "https://raw.githubusercontent.com/garrettdfaino/Pictures-for-FTP/main/dad-1.jpg",
     bio: "With 17 years of experience, Dennis has expertly managed the assembly, installation, maintenance, and relocation of our studios—home to the renowned STOTT and Balanced Body apparatus. His technical expertise and attention to detail ensure that every facility operates seamlessly, supporting our commitment to excellence.",
-    certification: "Certified by Body Be Well Pilates - Equipment Maintenace Course"
+    certification: "Certified by the National Pilates Certification Program"
   }
 ];
 
