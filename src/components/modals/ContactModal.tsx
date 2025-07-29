@@ -70,7 +70,7 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
 
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
-    } else if (!formData.email.includes('@')) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Please enter a valid email address';
     }
 
@@ -97,9 +97,19 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
         // First, save to database
         const { error: dbError } = await supabase
           .from('contact_submissions')
-          .insert([formData]);
+          .insert([{
+            name: formData.name.trim(),
+            studio_name: formData.studio_name.trim(),
+            city: formData.city.trim(),
+            state: formData.state,
+            phone_number: formData.phone_number.trim(),
+            email: formData.email.trim(),
+            service: formData.service,
+            message: formData.message.trim()
+          }]);
 
         if (dbError) {
+          console.error('Database error:', dbError);
           throw new Error(`Database error: ${dbError.message}`);
         }
 
@@ -108,15 +118,30 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+            'Access-Control-Allow-Origin': '*'
           },
-          body: JSON.stringify(formData)
+          body: JSON.stringify({
+            name: formData.name.trim(),
+            studio_name: formData.studio_name.trim(),
+            city: formData.city.trim(),
+            state: formData.state,
+            phone_number: formData.phone_number.trim(),
+            email: formData.email.trim(),
+            service: formData.service,
+            message: formData.message.trim()
+          })
         });
 
-        const result = await response.json();
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to send email');
+        }
 
-        if (!response.ok || !result.success) {
-          throw new Error(result.error || 'Failed to send email');
+        const result = await response.json();
+        
+        if (!result.success) {
+          throw new Error(result.error || 'Failed to process email');
         }
 
         setSubmitStatus('success');
@@ -236,6 +261,9 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
                     } text-theme-secondary focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent`}
                     placeholder="City"
                   />
+                  {errors.city && (
+                    <p className="mt-1 text-sm text-red-500">{errors.city}</p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-theme-secondary/80 mb-1">
@@ -254,12 +282,10 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
                       <option key={st} value={st}>{st}</option>
                     ))}
                   </select>
+                  {errors.state && (
+                    <p className="mt-1 text-sm text-red-500">{errors.state}</p>
+                  )}
                 </div>
-                {(errors.city || errors.state) && (
-                  <p className="col-span-2 -mt-2 text-sm text-red-500">
-                    {errors.city || errors.state}
-                  </p>
-                )}
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">
@@ -317,6 +343,7 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
                   <option value="repair">Repair/Maintenance</option>
                   <option value="install">Install/Relocation</option>
                   <option value="premier">Premier Maintenance Partnership</option>
+                  <option value="inspection">Free 30 Minute Inspection/Evaluation</option>
                   <option value="other">Other Questions</option>
                 </select>
                 {errors.service && (
