@@ -13,6 +13,12 @@ const testimonials = [
     role: "Owner, Club Pilates East Greenwich & Johnston, RI",
     logo: "https://github.com/garrettdfaino/Pictures-for-FTP/blob/main/club%20pilates.jpg?raw=true",
     text: "I would highly recommend Fine Tune Pilates! Kathy and Garrett came to my pilates studio in Rhode Island and thoroughly explained the maintenance program to me. Once I signed on, they immediately set up a date to return to my 2 studios and thoroughly inspected and made any necessary repairs to all my pilates equipment to ensure I am compliant and up to date with maintenance. Once the maintenance was complete, they provided a thorough post mortem report, listing each piece of equipment, the maintenance that was performed, any outstanding issues that needed to be addressed. Any questions I had were promptly and thoroughly answered afterward. The piece of mind knowing that my equipment is always up to code and compliant by trained pilates maintenance professionals gives me relief as a business owner, knowing we are doing all we can to keep our clients safe."
+  },
+  {
+    name: "Kathleen Curry",
+    role: "Owner, Passport Pilates",
+    logo: "https://github.com/garrettdfaino/Pictures-for-FTP/blob/main/Passportpilates.png?raw=true",
+    text: "We have just had our first Maintenance visit and we are so impressed! The Reformers are quieter, the rides smoother and they feel like new again. Most importantly, we feel good knowing that the Reformers are well maintained and safe for our clients. We were impressed with their willingness to come during our weekend down time without an additional fee. They also gave our instructors a class on how to fix the Allegro 2 footbars when they stick / jam during a group class."
   }
 ];
 
@@ -33,7 +39,7 @@ export function Testimonials() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.name}
