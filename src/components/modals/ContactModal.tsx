@@ -92,6 +92,7 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
     if (validateForm()) {
       setIsSubmitting(true);
       setSubmitStatus('idle');
+      console.log('Form data being submitted:', formData);
 
       try {
         // First, save to database
@@ -110,16 +111,17 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
 
         if (dbError) {
           console.error('Database error:', dbError);
-          throw new Error(`Database error: ${dbError.message}`);
+          // Continue even if database fails, just log it
+          console.warn('Database save failed, continuing with email send');
         }
 
         // Then, send email
+        console.log('Attempting to send email...');
         const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-email`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-            'Access-Control-Allow-Origin': '*'
           },
           body: JSON.stringify({
             name: formData.name.trim(),
@@ -133,12 +135,16 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
           })
         });
 
+        console.log('Email response status:', response.status);
+        
         if (!response.ok) {
           const errorData = await response.json();
+          console.error('Email send failed:', errorData);
           throw new Error(errorData.error || 'Failed to send email');
         }
 
         const result = await response.json();
+        console.log('Email send result:', result);
         
         if (!result.success) {
           throw new Error(result.error || 'Failed to process email');
