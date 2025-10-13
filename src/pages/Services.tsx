@@ -101,8 +101,8 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
             "Safety and performance recommendations"
           ],
           benefits: [
-            "Reduced repair rate at $115/hour (standard rate $165/hour)",
-            "Reduced travel fee at $65/hour (standard rate $100/hour)",
+            "Reduced repair rate",
+            "Reduced travel rate",
             "48-hour priority service",
             "No additional charges for evenings or weekends",
             "Complimentary storage of commonly used reformer wear parts",
@@ -113,8 +113,6 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
           plan: "Non-Partnership Standard Service",
           icon: Settings,
           features: [
-            "Professional repair service at $165/hour",
-            "Travel time billed at $100/hour",
             "Expert technicians",
             "Comprehensive safety checks",
             "Detailed service documentation",
