@@ -11,13 +11,6 @@ const teamMembers = [
     certification: "Certified by the National Pilates Certification Program"
   },
   {
-    name: "Kathy Jannino-Faino",
-    role: "Industry Strategist & Studio Support Specialist",
-    image: "https://raw.githubusercontent.com/garrettdfaino/Pictures-for-FTP/main/mom-1.1.JPG",
-    bio: "With 17 years of entrepreneurial experience in the Pilates industry, Kathy has managed multiple studios and experienced firsthand the challenges of finding reliable support. After selling her last studio in July 2024, she has shifted her focus from ownership to empowering other studios. Drawing on her deep industry insights and innovative business acumen, Kathy now dedicates herself to ensuring professional service and robust support for every client, bridging the gap she once faced.",
-    certification: "Certified by the National Pilates Certification Program"
-  },
-  {
     name: "Dennis Faino",
     role: "Service Technician",
     image: "https://raw.githubusercontent.com/garrettdfaino/Pictures-for-FTP/main/dad-1.jpg",
