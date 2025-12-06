@@ -35,9 +35,9 @@ export function Footer({ setShowContactModal }: FooterProps) {
           <div>
             <h4 className="text-lg font-semibold mb-4 text-theme-secondary">Contact</h4>
             <ul className="space-y-2 text-theme-secondary/60">
-              <li>P.O. Box 963</li>
-              <li>Hampstead, Nh 03841</li>
-              <li>garrett@finetunedpilates.com</li>
+              <li>320 Kings Hwy</li>
+              <li>New Durham, NH 03855</li>
+              <li>contact@finetunedpilates.com</li>
             </ul>
           </div>
           <div>
