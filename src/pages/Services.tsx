@@ -103,7 +103,7 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
           benefits: [
             "Reduced repair rate",
             "Reduced travel rate",
-            "48-hour priority service",
+            "Priority Service",
             "No additional charges for evenings or weekends",
             "Complimentary storage of commonly used reformer wear parts",
             "Access to a loaner reformer during downtime (subject to availability; $50/day rental)"
