@@ -1,5 +1,5 @@
-import React from 'react';
 import { motion } from 'framer-motion';
+import { Card } from '@/components/ui/card';
 
 const testimonials = [
   {
@@ -24,7 +24,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section id="testimonials" className="py-16 relative bg-white">
+    <section id="testimonials" className="py-16 relative bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -33,8 +33,8 @@ export function Testimonials() {
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold mb-4 text-theme-secondary">What Studio Owners Say</h2>
-          <p className="text-theme-secondary/80 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold mb-4 text-foreground">What Studio Owners Say</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             Discover the difference expert maintenance makes
           </p>
         </motion.div>
@@ -47,51 +47,44 @@ export function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: index * 0.2 }}
-              className="relative p-6 rounded-xl border border-theme-secondary/10 overflow-visible bg-theme-background"
-              style={{
-                boxShadow: '0 0 40px var(--color-primary)',
-              }}
             >
-              {/* Radial gradient background */}
-              <div 
-                className="absolute inset-0 opacity-10 rounded-xl"
-                style={{
-                  background: `radial-gradient(circle at center, var(--color-primary) 0%, transparent 70%)`
-                }}
-              />
-              
-              {/* Logo positioned to overlap */}
-              <div className="absolute left-1/2 -top-12 transform -translate-x-1/2">
-                <div className="bg-white p-4 rounded-xl shadow-lg">
-                  <img 
-                    src={testimonial.logo}
-                    alt={`${testimonial.role} logo`}
-                    className="h-16 w-auto rounded-lg"
-                  />
-                </div>
-              </div>
+              <Card className="relative bg-card shadow-glow overflow-visible p-6 rounded-xl">
+                {/* Radial gradient background */}
+                <div className="absolute inset-0 opacity-10 rounded-xl bg-glow-radial" />
 
-              <div className="relative pt-8">
-                <div className="relative text-center px-8">
-                  <span 
-                    className="absolute top-0 left-0 text-8xl leading-none text-theme-primary font-serif opacity-90" 
-                    style={{ transform: 'translate(-50%, -25%)' }}
-                  >
-                    "
-                  </span>
-                  <p className="text-theme-secondary text-base leading-relaxed">{testimonial.text}</p>
-                  <span 
-                    className="absolute bottom-0 right-0 text-8xl leading-none text-theme-primary font-serif opacity-90" 
-                    style={{ transform: 'translate(50%, 25%)' }}
-                  >
-                    "
-                  </span>
+                {/* Logo positioned to overlap */}
+                <div className="absolute left-1/2 -top-12 transform -translate-x-1/2">
+                  <div className="bg-white p-4 rounded-xl shadow-lg">
+                    <img
+                      src={testimonial.logo}
+                      alt={`${testimonial.role} logo`}
+                      className="h-16 w-auto rounded-lg"
+                    />
+                  </div>
                 </div>
-                <div className="text-center mt-6">
-                  <p className="font-semibold text-theme-secondary">{testimonial.name}</p>
-                  <p className="text-sm text-theme-secondary/80">{testimonial.role}</p>
+
+                <div className="relative pt-8">
+                  <div className="relative text-center px-8">
+                    <span
+                      className="absolute top-0 left-0 text-8xl leading-none text-primary font-serif opacity-90"
+                      style={{ transform: 'translate(-50%, -25%)' }}
+                    >
+                      "
+                    </span>
+                    <p className="text-foreground text-base leading-relaxed">{testimonial.text}</p>
+                    <span
+                      className="absolute bottom-0 right-0 text-8xl leading-none text-primary font-serif opacity-90"
+                      style={{ transform: 'translate(50%, 25%)' }}
+                    >
+                      "
+                    </span>
+                  </div>
+                  <div className="text-center mt-6">
+                    <p className="font-semibold text-foreground">{testimonial.name}</p>
+                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                  </div>
                 </div>
-              </div>
+              </Card>
             </motion.div>
           ))}
         </div>

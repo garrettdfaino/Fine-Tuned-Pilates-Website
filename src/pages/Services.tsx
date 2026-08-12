@@ -1,10 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Wrench, PackageCheck, CheckCircle2, ArrowRight, AlertTriangle, ShieldAlert, DollarSign, Clock, Handshake, Settings, Star } from 'lucide-react';
+import { Wrench, PackageCheck, CheckCircle2, ArrowRight, AlertTriangle, ShieldAlert, DollarSign, Clock, Handshake, Settings, Star, type LucideIcon } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 interface ServicesProps {
   setShowContactModal?: (show: boolean) => void;
+}
+
+interface TabFeature {
+  title: string;
+  description: string;
+}
+
+interface TabRisk {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
+
+interface TabPricingPlan {
+  plan: string;
+  icon?: LucideIcon;
+  services?: string[];
+  benefits?: string[];
+  features?: string[];
+}
+
+interface TabContentEntry {
+  title: string;
+  icon: LucideIcon;
+  summary: string;
+  description: string[];
+  features: TabFeature[];
+  risks?: TabRisk[];
+  pricing?: TabPricingPlan[];
+  image: string;
 }
 
 const Services = ({ setShowContactModal }: ServicesProps) => {
@@ -22,7 +55,7 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
     setShowContactModal?.(true);
   };
 
-  const tabContent = {
+  const tabContent: Record<string, TabContentEntry> = {
     'why-maintenance': {
       title: "Why Do I Need Maintenance?",
       icon: AlertTriangle,
@@ -164,9 +197,6 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
     }
   };
 
-  const IconComponent = tabContent[activeTab as keyof typeof tabContent].icon;
-  const content = tabContent[activeTab as keyof typeof tabContent];
-
   const listVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -188,175 +218,136 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-theme-background pt-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        {/* Services Introduction */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-theme-secondary">
-            Our Services
-          </h1>
-          <p className="text-xl text-theme-secondary/80 max-w-3xl mx-auto">
-            We provide comprehensive equipment solutions for Pilates studios, from expert maintenance 
-            to professional installation services. Our team ensures your studio's equipment performs 
-            at its peak, keeping your clients safe and satisfied.
-          </p>
+  const renderTabContent = (key: string, content: TabContentEntry) => {
+    const IconComponent = content.icon;
+
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="space-y-16"
+      >
+        {/* Hero Section */}
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-3xl font-bold text-foreground mb-4">
+                {content.title}
+              </h2>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                {content.summary}
+              </p>
+            </div>
+            <motion.div
+              className="space-y-4"
+              variants={listVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {content.description.map((item, index) => (
+                <motion.div
+                  key={index}
+                  className="flex items-center space-x-3"
+                  variants={itemVariants}
+                >
+                  <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0" />
+                  <span className="text-muted-foreground">{item}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+          <div className="relative max-w-md mx-auto">
+            <div className="aspect-[4/3] rounded-xl overflow-hidden">
+              <img
+                src={content.image}
+                alt={content.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="absolute -bottom-4 -right-4 bg-primary p-6 rounded-xl">
+              <IconComponent className="w-6 h-6 text-primary-foreground" />
+            </div>
+          </div>
         </div>
 
-        {/* Tabs */}
-        <div id="services-tabs" className="mb-12">
-          <div className="flex flex-wrap justify-center gap-4">
-            {Object.entries(tabContent).map(([key, { title, icon: Icon }]) => (
-              <button
-                key={key}
-                onClick={() => setActiveTab(key)}
-                className={`flex items-center px-6 py-3 rounded-full transition-colors ${
-                  activeTab === key
-                    ? 'bg-theme-primary text-theme-secondary'
-                    : 'bg-theme-background border border-theme-secondary/10 text-theme-secondary/80 hover:border-theme-primary'
-                }`}
+        {/* Features Section */}
+        <div>
+          <h3 className="text-2xl font-bold text-foreground mb-8">Key Features</h3>
+          <div className="grid md:grid-cols-3 gap-8">
+            {content.features.map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
               >
-                <Icon className="w-5 h-5 mr-2" />
-                {title}
-              </button>
+                <Card className="bg-muted/50 p-6 border-border">
+                  <h4 className="text-xl font-semibold text-foreground mb-3">{feature.title}</h4>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>
 
-        {/* Tab Content */}
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="space-y-16"
-        >
-          {/* Hero Section */}
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-3xl font-bold text-theme-secondary mb-4">
-                  {content.title}
-                </h2>
-                <p className="text-theme-secondary/80 text-lg leading-relaxed">
-                  {content.summary}
-                </p>
-              </div>
-              <motion.div 
-                className="space-y-4"
-                variants={listVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                {content.description.map((item, index) => (
-                  <motion.div 
-                    key={index} 
-                    className="flex items-center space-x-3"
-                    variants={itemVariants}
-                  >
-                    <CheckCircle2 className="w-6 h-6 text-theme-primary flex-shrink-0" />
-                    <span className="text-theme-secondary/80">{item}</span>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
-            <div className="relative max-w-md mx-auto">
-              <div className="aspect-[4/3] rounded-xl overflow-hidden">
-                <img
-                  src={content.image}
-                  alt={content.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="absolute -bottom-4 -right-4 bg-theme-primary p-6 rounded-xl">
-                <IconComponent className="w-6 h-6 text-theme-secondary" />
-              </div>
-            </div>
-          </div>
-
-          {/* Features Section */}
+        {/* Risks Section for Why Maintenance Tab */}
+        {key === 'why-maintenance' && (
           <div>
-            <h3 className="text-2xl font-bold text-theme-secondary mb-8">Key Features</h3>
+            <h3 className="text-2xl font-bold text-foreground mb-8">Risks of Poor Maintenance</h3>
             <div className="grid md:grid-cols-3 gap-8">
-              {content.features.map((feature, index) => (
+              {content.risks?.map((risk, index) => (
                 <motion.div
-                  key={feature.title}
+                  key={risk.title}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-theme-background/50 p-6 rounded-xl border border-theme-secondary/10"
                 >
-                  <h4 className="text-xl font-semibold text-theme-secondary mb-3">{feature.title}</h4>
-                  <p className="text-theme-secondary/80">{feature.description}</p>
+                  <Card className="bg-primary/10 p-6 border-primary/20">
+                    <risk.icon className="h-8 w-8 text-primary mb-4" />
+                    <h4 className="text-xl font-semibold text-foreground mb-3">{risk.title}</h4>
+                    <p className="text-muted-foreground">{risk.description}</p>
+                  </Card>
                 </motion.div>
               ))}
             </div>
           </div>
+        )}
 
-          {/* Risks Section for Why Maintenance Tab */}
-          {activeTab === 'why-maintenance' && (
-            <div>
-              <h3 className="text-2xl font-bold text-theme-secondary mb-8">Risks of Poor Maintenance</h3>
-              <div className="grid md:grid-cols-3 gap-8">
-                {content.risks?.map((risk, index) => (
-                  <motion.div
-                    key={risk.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="bg-theme-primary/10 p-6 rounded-xl border border-theme-primary/20"
-                  >
-                    <risk.icon className="h-8 w-8 text-theme-primary mb-4" />
-                    <h4 className="text-xl font-semibold text-theme-secondary mb-3">{risk.title}</h4>
-                    <p className="text-theme-secondary/80">{risk.description}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Service Options Section */}
-          {content.pricing && (
-            <div>
-              <h3 className="text-2xl font-bold text-theme-secondary mb-8">
-                {activeTab === 'installation' ? 'Request a Quote' : 'Service Options'}
-              </h3>
-              <div className="grid gap-8">
-                {content.pricing.map((plan, index) => (
-                  <motion.div
-                    key={plan.plan}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="relative bg-theme-background/50 p-8 rounded-xl border border-theme-secondary/10 overflow-hidden"
-                    style={{
-                      boxShadow: '0 0 40px var(--color-primary)',
-                    }}
-                  >
+        {/* Service Options Section */}
+        {content.pricing && (
+          <div>
+            <h3 className="text-2xl font-bold text-foreground mb-8">
+              {key === 'installation' ? 'Request a Quote' : 'Service Options'}
+            </h3>
+            <div className="grid gap-8">
+              {content.pricing.map((plan, index) => (
+                <motion.div
+                  key={plan.plan}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Card className="relative bg-muted/50 p-8 border-border overflow-hidden shadow-glow">
                     {/* Radial gradient background */}
-                    <div 
-                      className="absolute inset-0 opacity-10"
-                      style={{
-                        background: `radial-gradient(circle at center, var(--color-primary) 0%, transparent 70%)`
-                      }}
-                    />
+                    <div className="absolute inset-0 opacity-10 bg-glow-radial" />
 
                     <div className="relative">
                       <div className="flex items-center gap-3 mb-6">
-                        {plan.icon && <plan.icon className="w-8 h-8 text-theme-primary" />}
-                        <h4 className="text-2xl font-bold text-theme-secondary">{plan.plan}</h4>
+                        {plan.icon && <plan.icon className="w-8 h-8 text-primary" />}
+                        <h4 className="text-2xl font-bold text-foreground">{plan.plan}</h4>
                       </div>
 
                       {/* Premier Partnership Services and Benefits */}
                       {plan.services && plan.benefits ? (
                         <div className="grid md:grid-cols-2 gap-8">
                           <div>
-                            <h5 className="text-lg font-semibold text-theme-secondary mb-4 flex items-center gap-2">
-                              <Wrench className="w-5 h-5 text-theme-primary" />
+                            <h5 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+                              <Wrench className="w-5 h-5 text-primary" />
                               Services Provided
                             </h5>
-                            <motion.ul 
+                            <motion.ul
                               className="space-y-3 mb-8"
                               variants={listVariants}
                               initial="hidden"
@@ -364,23 +355,23 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
                               viewport={{ once: true }}
                             >
                               {plan.services.map((service, i) => (
-                                <motion.li 
-                                  key={i} 
+                                <motion.li
+                                  key={i}
                                   className="flex items-center space-x-3"
                                   variants={itemVariants}
                                 >
-                                  <CheckCircle2 className="w-5 h-5 text-theme-primary flex-shrink-0" />
-                                  <span className="text-theme-secondary/80">{service}</span>
+                                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                                  <span className="text-muted-foreground">{service}</span>
                                 </motion.li>
                               ))}
                             </motion.ul>
                           </div>
                           <div>
-                            <h5 className="text-lg font-semibold text-theme-secondary mb-4 flex items-center gap-2">
-                              <Star className="w-5 h-5 text-theme-primary" />
+                            <h5 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+                              <Star className="w-5 h-5 text-primary" />
                               Partnership Benefits
                             </h5>
-                            <motion.ul 
+                            <motion.ul
                               className="space-y-3 mb-8"
                               variants={listVariants}
                               initial="hidden"
@@ -388,20 +379,20 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
                               viewport={{ once: true }}
                             >
                               {plan.benefits.map((benefit, i) => (
-                                <motion.li 
-                                  key={i} 
+                                <motion.li
+                                  key={i}
                                   className="flex items-center space-x-3"
                                   variants={itemVariants}
                                 >
-                                  <CheckCircle2 className="w-5 h-5 text-theme-primary flex-shrink-0" />
-                                  <span className="text-theme-secondary/80">{benefit}</span>
+                                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                                  <span className="text-muted-foreground">{benefit}</span>
                                 </motion.li>
                               ))}
                             </motion.ul>
                           </div>
                         </div>
                       ) : (
-                        <motion.ul 
+                        <motion.ul
                           className="space-y-3 mb-8"
                           variants={listVariants}
                           initial="hidden"
@@ -409,32 +400,74 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
                           viewport={{ once: true }}
                         >
                           {plan.features?.map((feature, i) => (
-                            <motion.li 
-                              key={i} 
+                            <motion.li
+                              key={i}
                               className="flex items-center space-x-3"
                               variants={itemVariants}
                             >
-                              <CheckCircle2 className="w-5 h-5 text-theme-primary flex-shrink-0" />
-                              <span className="text-theme-secondary/80">{feature}</span>
+                              <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                              <span className="text-muted-foreground">{feature}</span>
                             </motion.li>
                           ))}
                         </motion.ul>
                       )}
 
-                      <button 
+                      <Button
                         onClick={handleGetStarted}
-                        className="w-full px-6 py-3 rounded-lg bg-theme-primary text-theme-secondary hover:opacity-90 transition-opacity flex items-center justify-center"
+                        className="w-full"
                       >
                         Get Started
                         <ArrowRight className="ml-2 h-5 w-5" />
-                      </button>
+                      </Button>
                     </div>
-                  </motion.div>
-                ))}
-              </div>
+                  </Card>
+                </motion.div>
+              ))}
             </div>
-          )}
-        </motion.div>
+          </div>
+        )}
+      </motion.div>
+    );
+  };
+
+  return (
+    <div className="min-h-screen bg-background pt-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        {/* Services Introduction */}
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
+            Our Services
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            We provide comprehensive equipment solutions for Pilates studios, from expert maintenance
+            to professional installation services. Our team ensures your studio's equipment performs
+            at its peak, keeping your clients safe and satisfied.
+          </p>
+        </div>
+
+        {/* Tabs */}
+        <div id="services-tabs" className="mb-12">
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <TabsList className="flex flex-wrap justify-center gap-4 h-auto bg-transparent p-0">
+              {Object.entries(tabContent).map(([key, { title, icon: Icon }]) => (
+                <TabsTrigger
+                  key={key}
+                  value={key}
+                  className="rounded-full px-6 py-3 border border-border data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-none hover:border-primary"
+                >
+                  <Icon className="w-5 h-5 mr-2" />
+                  {title}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+
+            {Object.entries(tabContent).map(([key, content]) => (
+              <TabsContent key={key} value={key}>
+                {renderTabContent(key, content)}
+              </TabsContent>
+            ))}
+          </Tabs>
+        </div>
       </div>
     </div>
   );

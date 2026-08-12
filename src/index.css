@@ -2,46 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: light;
-}
-
-body {
-  background-color: var(--color-background, #ffffff);
-  color: var(--color-secondary, #0f172a);
-}
-
 html {
   scroll-behavior: smooth;
 }
 
-/* Theme Variables */
-:root {
-  --color-primary: #94a3b8;
-  --color-secondary: #0f172a;
-  --color-accent: #64748b;
-  --color-background: #ffffff;
+@layer base {
+  :root {
+    color-scheme: light;
+
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 215 25% 65%;
+    --primary-foreground: 222 47% 11%;
+
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 215 25% 65%;
+
+    --radius: 0.75rem;
+
+    --brand-surface: 215 16% 47%;
+    --brand-surface-foreground: 0 0% 100%;
+    --warning: 43 100% 50%;
+    --warning-soft: 46 100% 95%;
+  }
+
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground; }
 }
-
-/* Theme Classes */
-.text-theme-primary { color: var(--color-primary); }
-.bg-theme-primary { background-color: var(--color-primary); }
-.text-theme-secondary { color: var(--color-secondary); }
-.bg-theme-secondary { background-color: var(--color-secondary); }
-.text-theme-accent { color: var(--color-accent); }
-.bg-theme-accent { background-color: var(--color-accent); }
-.text-theme-background { color: var(--color-background); }
-.bg-theme-background { background-color: var(--color-background); }
-.border-theme-primary { border-color: var(--color-primary); }
-.border-theme-secondary { border-color: var(--color-secondary); }
-.border-theme-accent { border-color: var(--color-accent); }
-
-/* Hover States */
-.hover\:text-theme-primary:hover { color: var(--color-primary); }
-.hover\:bg-theme-primary:hover { background-color: var(--color-primary); }
-.hover\:text-theme-secondary:hover { color: var(--color-secondary); }
-.hover\:bg-theme-secondary:hover { background-color: var(--color-secondary); }
-.hover\:text-theme-accent:hover { color: var(--color-accent); }
-.hover\:bg-theme-accent:hover { background-color: var(--color-accent); }
-.hover\:text-theme-background:hover { color: var(--color-background); }
-.hover\:bg-theme-background:hover { background-color: var(--color-background); }

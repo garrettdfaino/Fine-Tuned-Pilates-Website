@@ -1,6 +1,6 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { Linkedin, Twitter, GraduationCap } from 'lucide-react';
+import { GraduationCap } from 'lucide-react';
+import { Card } from '@/components/ui/card';
 
 const teamMembers = [
   {
@@ -21,7 +21,7 @@ const teamMembers = [
 
 export function Team() {
   return (
-    <section id="team" className="py-16 bg-theme-background">
+    <section id="team" className="py-16 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -30,8 +30,8 @@ export function Team() {
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-theme-secondary">Meet Our Team</h2>
-          <p className="text-xl text-theme-secondary/80 max-w-2xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">Meet Our Team</h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Our experts bring decades of combined experience in Pilates equipment, studio setup, and training
           </p>
         </motion.div>
@@ -44,38 +44,31 @@ export function Team() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2, duration: 0.8 }}
-              className="relative bg-theme-accent rounded-xl p-6 border border-theme-secondary/10 overflow-hidden"
-              style={{
-                boxShadow: '0 0 40px var(--color-primary)',
-              }}
             >
-              {/* Radial gradient background */}
-              <div 
-                className="absolute inset-0 opacity-10"
-                style={{
-                  background: `radial-gradient(circle at center, var(--color-primary) 0%, transparent 70%)`
-                }}
-              />
-              <div className="relative">
-                <div className="relative overflow-hidden rounded-xl aspect-square mb-4">
-                  <img 
-                    src={member.image}
-                    alt={member.name}
-                    className={`object-cover w-full h-full transition-transform duration-500 hover:scale-110 ${
-                      member.name === "Dennis Faino" ? "object-[50%_35%]" : "object-[50%_65%]"
-                    }`}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <h3 className="text-2xl font-bold text-theme-background">{member.name}</h3>
-                  <p className="text-lg font-medium text-theme-background/90">{member.role}</p>
-                  <p className="text-lg text-theme-background/90 leading-relaxed">{member.bio}</p>
-                  <div className="flex items-center gap-2 pt-2">
-                    <GraduationCap className="w-5 h-5 text-theme-background/90" />
-                    <p className="text-lg text-theme-background/90 font-medium italic">{member.certification}</p>
+              <Card className="relative bg-brand-surface text-brand-surface-foreground shadow-glow rounded-xl p-6 overflow-hidden">
+                {/* Radial gradient background */}
+                <div className="absolute inset-0 opacity-10 bg-glow-radial" />
+                <div className="relative">
+                  <div className="relative overflow-hidden rounded-xl aspect-square mb-4">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className={`object-cover w-full h-full transition-transform duration-500 hover:scale-110 ${
+                        member.name === "Dennis Faino" ? "object-[50%_35%]" : "object-[50%_65%]"
+                      }`}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="text-2xl font-bold text-brand-surface-foreground">{member.name}</h3>
+                    <p className="text-lg font-medium text-brand-surface-foreground/90">{member.role}</p>
+                    <p className="text-lg text-brand-surface-foreground/90 leading-relaxed">{member.bio}</p>
+                    <div className="flex items-center gap-2 pt-2">
+                      <GraduationCap className="w-5 h-5 text-brand-surface-foreground/90" />
+                      <p className="text-lg text-brand-surface-foreground/90 font-medium italic">{member.certification}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Card>
             </motion.div>
           ))}
         </div>

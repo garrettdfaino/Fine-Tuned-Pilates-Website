@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Star, ChevronDown, ChevronUp } from 'lucide-react';
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/components/ui/collapsible';
 
 export function About() {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <section id="about" className="py-16 bg-theme-background">
+    <section id="about" className="py-16 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div
@@ -16,31 +17,25 @@ export function About() {
             transition={{ duration: 0.8 }}
             className="space-y-6"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-theme-secondary">Our Story</h2>
-            <div className="space-y-4 text-theme-secondary/80">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">Our Story</h2>
+            <div className="space-y-4 text-muted-foreground">
               <p className="text-lg leading-relaxed">
                 At Fine Tuned Pilates, LLC, we believe that your studio's success begins with dependable, expert support. Our journey started when we recognized a major gap in the Pilates industry: there was simply no reliable maintenance and support system available for studios. Without proper care, even the best equipment could fall short—impacting safety, performance, and ultimately, your business's success.
               </p>
-              
-              {!isExpanded && (
-                <button
-                  onClick={() => setIsExpanded(true)}
-                  className="flex items-center gap-2 text-theme-primary hover:opacity-80 transition-opacity text-sm font-medium"
-                >
-                  Read More
-                  <ChevronDown className="w-4 h-4" />
-                </button>
-              )}
 
-              <AnimatePresence>
-                {isExpanded && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="space-y-4 overflow-hidden"
-                  >
+              <Collapsible open={isExpanded} onOpenChange={setIsExpanded}>
+                {!isExpanded && (
+                  <CollapsibleTrigger asChild>
+                    <button
+                      className="flex items-center gap-2 text-primary hover:opacity-80 transition-opacity text-sm font-medium"
+                    >
+                      Read More
+                      <ChevronDown className="w-4 h-4" />
+                    </button>
+                  </CollapsibleTrigger>
+                )}
+
+                <CollapsibleContent className="space-y-4">
                     <p className="text-lg leading-relaxed">
                       Drawing from our personal experiences, we witnessed firsthand how challenging it was for studios to secure the reliable maintenance and support they needed. Without the dedicated expertise provided by myself and Dennis, even studios managed by industry veterans like Kathy would have faced significant challenges in keeping their equipment in optimal condition.
                     </p>
@@ -53,16 +48,18 @@ export function About() {
                     <p className="text-lg leading-relaxed">
                       Reach out by phone, text, or email to set up an appointment. Let us visit your studio and show you how our expertise can make a difference. We're here to help, so you can focus on what you do best—providing an outstanding Pilates experience.
                     </p>
-                    <button
-                      onClick={() => setIsExpanded(false)}
-                      className="flex items-center gap-2 text-theme-primary hover:opacity-80 transition-opacity text-sm font-medium"
-                    >
-                      Read Less
-                      <ChevronUp className="w-4 h-4" />
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    {isExpanded && (
+                      <CollapsibleTrigger asChild>
+                        <button
+                          className="flex items-center gap-2 text-primary hover:opacity-80 transition-opacity text-sm font-medium"
+                        >
+                          Read Less
+                          <ChevronUp className="w-4 h-4" />
+                        </button>
+                      </CollapsibleTrigger>
+                    )}
+                </CollapsibleContent>
+              </Collapsible>
             </div>
           </motion.div>
           <motion.div
@@ -79,8 +76,8 @@ export function About() {
                 className="w-full h-full object-cover shadow-xl"
               />
             </div>
-            <div className="absolute -bottom-4 -right-4 bg-theme-primary p-6 rounded-2xl">
-              <Star className="h-6 w-6 text-theme-secondary" />
+            <div className="absolute -bottom-4 -right-4 bg-primary p-6 rounded-2xl">
+              <Star className="h-6 w-6 text-primary-foreground" />
             </div>
           </motion.div>
         </div>

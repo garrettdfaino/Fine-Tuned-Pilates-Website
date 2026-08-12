@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
@@ -56,33 +56,6 @@ function App() {
           activeSection={activeSection}
           setShowContactModal={setShowContactModal}
         />
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="fixed inset-0 z-40 bg-theme-background md:hidden">
-            <div className="flex flex-col items-center justify-center h-full space-y-8">
-              {['Home', 'About', 'Services', 'Team'].map((item) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-2xl font-medium text-theme-secondary hover:text-theme-primary transition-colors"
-                >
-                  {item}
-                </a>
-              ))}
-              <button 
-                onClick={() => {
-                  setShowContactModal(true);
-                  setIsMenuOpen(false);
-                }}
-                className="px-8 py-3 rounded-full bg-theme-primary text-theme-secondary hover:opacity-90 transition-opacity"
-              >
-                Get Started
-              </button>
-            </div>
-          </div>
-        )}
 
         {/* Routes */}
         <Routes>

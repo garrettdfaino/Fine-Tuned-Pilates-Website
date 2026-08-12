@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetTitle,
+  SheetDescription,
+} from '@/components/ui/sheet';
 
 interface HeaderProps {
   isMenuOpen?: boolean;
@@ -10,24 +19,22 @@ interface HeaderProps {
   minimal?: boolean;
 }
 
-export function Header({ 
-  isMenuOpen, 
-  setIsMenuOpen, 
-  activeSection, 
+export function Header({
+  isMenuOpen,
+  setIsMenuOpen,
+  activeSection,
   setShowContactModal,
-  minimal = false 
+  minimal = false
 }: HeaderProps) {
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === '/';
   const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setIsVisible(currentScrollY <= 0);
-      setLastScrollY(currentScrollY);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -40,7 +47,7 @@ export function Header({
 
   const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, path: string, section: string | null) => {
     e.preventDefault();
-    
+
     if (section) {
       if (!isHome) {
         // If we're not on home page, navigate to home first
@@ -72,20 +79,20 @@ export function Header({
 
   if (minimal) {
     return (
-      <nav 
-        className={`fixed top-0 w-full z-50 bg-white border-b border-theme-secondary/10 transition-transform duration-300 ${
+      <nav
+        className={`fixed top-0 w-full z-50 bg-white border-b border-border transition-transform duration-300 ${
           isVisible ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
             <Link to="/" className="flex items-center space-x-3">
-              <img 
+              <img
                 src="https://raw.githubusercontent.com/garrettdfaino/Pictures-for-FTP/main/Fine%20Tuned%20Pilates_black-cropped.PNG"
                 alt="Fine Tuned Pilates"
                 className="h-12 w-auto"
               />
-              <span className="text-xl font-semibold text-theme-secondary">Fine Tuned Pilates</span>
+              <span className="text-xl font-semibold text-foreground">Fine Tuned Pilates</span>
             </Link>
           </div>
         </div>
@@ -94,25 +101,25 @@ export function Header({
   }
 
   return (
-    <nav 
-      className={`fixed w-full z-50 bg-white border-b border-theme-secondary/10 transition-transform duration-300 ${
+    <nav
+      className={`fixed w-full z-50 bg-white border-b border-border transition-transform duration-300 ${
         isVisible ? 'translate-y-0' : '-translate-y-full'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
           <Link to="/" className="flex items-center space-x-3">
-            <img 
+            <img
               src="https://raw.githubusercontent.com/garrettdfaino/Pictures-for-FTP/main/Fine%20Tuned%20Pilates_black-cropped.PNG"
               alt="Fine Tuned Pilates"
               className="h-12 w-auto"
             />
-            <span className="text-xl font-semibold text-theme-secondary">Fine Tuned Pilates</span>
+            <span className="text-xl font-semibold text-foreground">Fine Tuned Pilates</span>
           </Link>
-          
+
           <div className="hidden md:flex space-x-8">
             {navigationItems.map((item) => {
-              const isActive = isHome 
+              const isActive = isHome
                 ? activeSection === item.section
                 : location.pathname === item.path;
 
@@ -121,9 +128,10 @@ export function Header({
                   key={item.label}
                   href={item.path}
                   onClick={(e) => handleNavigation(e, item.path, item.section)}
-                  className={`text-lg font-medium transition-colors hover:text-theme-primary ${
-                    isActive ? 'text-theme-primary' : 'text-theme-secondary/80'
-                  }`}
+                  className={cn(
+                    'text-lg font-medium transition-colors hover:text-primary',
+                    isActive ? 'text-primary' : 'text-muted-foreground'
+                  )}
                 >
                   {item.label}
                 </a>
@@ -132,20 +140,48 @@ export function Header({
           </div>
 
           <div className="hidden md:flex items-center space-x-6">
-            <button 
+            <Button
               onClick={() => setShowContactModal?.(true)}
-              className="px-6 py-2 rounded-full bg-theme-primary text-theme-secondary hover:opacity-90 transition-opacity"
+              className="rounded-full px-6"
             >
               Get Started
-            </button>
+            </Button>
           </div>
 
-          <button 
-            onClick={() => setIsMenuOpen?.(!isMenuOpen)}
-            className="md:hidden text-theme-secondary"
-          >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="md:hidden">
+                <Menu className="h-6 w-6" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right">
+              <SheetTitle className="sr-only">Navigation menu</SheetTitle>
+              <SheetDescription className="sr-only">
+                Site navigation links and contact action
+              </SheetDescription>
+              <div className="flex flex-col items-center justify-center h-full space-y-8">
+                {navigationItems.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.path}
+                    onClick={(e) => handleNavigation(e, item.path, item.section)}
+                    className="text-2xl font-medium text-foreground hover:text-primary transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+                <Button
+                  onClick={() => {
+                    setShowContactModal?.(true);
+                    setIsMenuOpen?.(false);
+                  }}
+                  className="rounded-full px-8 py-3"
+                >
+                  Get Started
+                </Button>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </nav>

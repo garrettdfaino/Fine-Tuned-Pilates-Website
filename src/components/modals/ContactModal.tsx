@@ -1,7 +1,24 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
+import { cn } from '@/lib/utils';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
 
 interface ContactModalProps {
   showContactModal: boolean;
@@ -88,7 +105,7 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (validateForm()) {
       setIsSubmitting(true);
       setSubmitStatus('idle');
@@ -136,7 +153,7 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
         });
 
         console.log('Email response status:', response.status);
-        
+
         if (!response.ok) {
           const errorData = await response.json();
           console.error('Email send failed:', errorData);
@@ -145,7 +162,7 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
 
         const result = await response.json();
         console.log('Email send result:', result);
-        
+
         if (!result.success) {
           throw new Error(result.error || 'Failed to process email');
         }
@@ -182,224 +199,193 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
     }
   };
 
+  const handleSelectChange = (name: keyof FormData, value: string) => {
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: undefined }));
+    }
+  };
+
   return (
-    <AnimatePresence>
-      {showContactModal && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
-        >
-          <div 
-            className="absolute inset-0 bg-theme-background/60 backdrop-blur-md"
-            onClick={() => setShowContactModal(false)}
-          />
+    <Dialog open={showContactModal} onOpenChange={setShowContactModal}>
+      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Let us help you!</DialogTitle>
+        </DialogHeader>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ duration: 0.2 }}
-            className="relative bg-theme-background rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto border border-theme-secondary/10 shadow-xl"
-          >
-            <div className="sticky top-0 bg-theme-background z-10 px-6 py-4 border-b border-theme-secondary/10">
-              <button 
-                onClick={() => setShowContactModal(false)}
-                className="absolute right-4 top-4 text-theme-secondary/60 hover:text-theme-secondary"
-              >
-                <X className="h-6 w-6" />
-              </button>
-              <h2 className="text-2xl font-bold text-theme-secondary">Let us help you!</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <Label htmlFor="name" className="mb-1 block">
+              Your Name
+            </Label>
+            <Input
+              id="name"
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className={cn(errors.name && "border-destructive")}
+              placeholder="John Doe"
+            />
+            {errors.name && (
+              <p className="mt-1 text-sm text-destructive">{errors.name}</p>
+            )}
+          </div>
+
+          <div>
+            <Label htmlFor="studio_name" className="mb-1 block">
+              Studio Name
+            </Label>
+            <Input
+              id="studio_name"
+              type="text"
+              name="studio_name"
+              value={formData.studio_name}
+              onChange={handleChange}
+              className={cn(errors.studio_name && "border-destructive")}
+              placeholder="Your Pilates Studio"
+            />
+            {errors.studio_name && (
+              <p className="mt-1 text-sm text-destructive">{errors.studio_name}</p>
+            )}
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="city" className="mb-1 block">
+                City
+              </Label>
+              <Input
+                id="city"
+                type="text"
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
+                className={cn(errors.city && "border-destructive")}
+                placeholder="City"
+              />
+              {errors.city && (
+                <p className="mt-1 text-sm text-destructive">{errors.city}</p>
+              )}
             </div>
-
-            <form onSubmit={handleSubmit} className="p-6 space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-theme-secondary/80 mb-1">
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className={`w-full px-3 py-2 rounded-lg bg-theme-background/50 border ${
-                    errors.name ? 'border-red-500' : 'border-theme-secondary/10'
-                  } text-theme-secondary focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent`}
-                  placeholder="John Doe"
-                />
-                {errors.name && (
-                  <p className="mt-1 text-sm text-red-500">{errors.name}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-theme-secondary/80 mb-1">
-                  Studio Name
-                </label>
-                <input
-                  type="text"
-                  name="studio_name"
-                  value={formData.studio_name}
-                  onChange={handleChange}
-                  className={`w-full px-3 py-2 rounded-lg bg-theme-background/50 border ${
-                    errors.studio_name ? 'border-red-500' : 'border-theme-secondary/10'
-                  } text-theme-secondary focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent`}
-                  placeholder="Your Pilates Studio"
-                />
-                {errors.studio_name && (
-                  <p className="mt-1 text-sm text-red-500">{errors.studio_name}</p>
-                )}
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-theme-secondary/80 mb-1">
-                    City
-                  </label>
-                  <input
-                    type="text"
-                    name="city"
-                    value={formData.city}
-                    onChange={handleChange}
-                    className={`w-full px-3 py-2 rounded-lg bg-theme-background/50 border ${
-                      errors.city ? 'border-red-500' : 'border-theme-secondary/10'
-                    } text-theme-secondary focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent`}
-                    placeholder="City"
-                  />
-                  {errors.city && (
-                    <p className="mt-1 text-sm text-red-500">{errors.city}</p>
-                  )}
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-theme-secondary/80 mb-1">
-                    State
-                  </label>
-                  <select
-                    name="state"
-                    value={formData.state}
-                    onChange={handleChange}
-                    className={`w-full px-3 py-2 rounded-lg bg-theme-background/50 border ${
-                      errors.state ? 'border-red-500' : 'border-theme-secondary/10'
-                    } text-theme-secondary focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent`}
-                  >
-                    <option value="">Select State</option>
-                    {states.map(st => (
-                      <option key={st} value={st}>{st}</option>
-                    ))}
-                  </select>
-                  {errors.state && (
-                    <p className="mt-1 text-sm text-red-500">{errors.state}</p>
-                  )}
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-theme-secondary/80 mb-1">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone_number"
-                    value={formData.phone_number}
-                    onChange={handleChange}
-                    className={`w-full px-3 py-2 rounded-lg bg-theme-background/50 border ${
-                      errors.phone_number ? 'border-red-500' : 'border-theme-secondary/10'
-                    } text-theme-secondary focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent`}
-                    placeholder="(123) 456-7890"
-                  />
-                  {errors.phone_number && (
-                    <p className="mt-1 text-sm text-red-500">{errors.phone_number}</p>
-                  )}
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-theme-secondary/80 mb-1">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className={`w-full px-3 py-2 rounded-lg bg-theme-background/50 border ${
-                      errors.email ? 'border-red-500' : 'border-theme-secondary/10'
-                    } text-theme-secondary focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent`}
-                    placeholder="studio@example.com"
-                  />
-                  {errors.email && (
-                    <p className="mt-1 text-sm text-red-500">{errors.email}</p>
-                  )}
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-theme-secondary/80 mb-1">
-                  Service Interest
-                </label>
-                <select
-                  name="service"
-                  value={formData.service}
-                  onChange={handleChange}
-                  className={`w-full px-3 py-2 rounded-lg bg-theme-background/50 border ${
-                    errors.service ? 'border-red-500' : 'border-theme-secondary/10'
-                  } text-theme-secondary focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent`}
-                >
-                  <option value="">Select a service</option>
-                  <option value="repair">Repair/Maintenance</option>
-                  <option value="install">Install/Relocation</option>
-                  <option value="premier">Premier Maintenance Partnership</option>
-                  <option value="inspection">Free 30 Minute Inspection/Evaluation</option>
-                  <option value="other">Other Questions</option>
-                </select>
-                {errors.service && (
-                  <p className="mt-1 text-sm text-red-500">{errors.service}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-theme-secondary/80 mb-1">
-                  Message
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={3}
-                  className={`w-full px-3 py-2 rounded-lg bg-theme-background/50 border ${
-                    errors.message ? 'border-red-500' : 'border-theme-secondary/10'
-                  } text-theme-secondary focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent`}
-                  placeholder="Tell us about your studio's needs..."
-                />
-                {errors.message && (
-                  <p className="mt-1 text-sm text-red-500">{errors.message}</p>
-                )}
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className={`w-full bg-theme-primary text-theme-secondary py-2.5 rounded-lg transition-all flex items-center justify-center ${
-                  isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:opacity-90'
-                }`}
+            <div>
+              <Label htmlFor="state" className="mb-1 block">
+                State
+              </Label>
+              <Select
+                value={formData.state}
+                onValueChange={(v) => handleSelectChange('state', v)}
               >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin mr-2" />
-                    Sending...
-                  </>
-                ) : submitStatus === 'success' ? (
-                  'Message Sent!'
-                ) : submitStatus === 'error' ? (
-                  'Failed to Send - Try Again'
-                ) : (
-                  'Send Message'
-                )}
-              </button>
-            </form>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+                <SelectTrigger id="state" className={cn(errors.state && "border-destructive")}>
+                  <SelectValue placeholder="Select State" />
+                </SelectTrigger>
+                <SelectContent>
+                  {states.map(st => (
+                    <SelectItem key={st} value={st}>{st}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.state && (
+                <p className="mt-1 text-sm text-destructive">{errors.state}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="phone_number" className="mb-1 block">
+                Phone Number
+              </Label>
+              <Input
+                id="phone_number"
+                type="tel"
+                name="phone_number"
+                value={formData.phone_number}
+                onChange={handleChange}
+                className={cn(errors.phone_number && "border-destructive")}
+                placeholder="(123) 456-7890"
+              />
+              {errors.phone_number && (
+                <p className="mt-1 text-sm text-destructive">{errors.phone_number}</p>
+              )}
+            </div>
+            <div>
+              <Label htmlFor="email" className="mb-1 block">
+                Email
+              </Label>
+              <Input
+                id="email"
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className={cn(errors.email && "border-destructive")}
+                placeholder="studio@example.com"
+              />
+              {errors.email && (
+                <p className="mt-1 text-sm text-destructive">{errors.email}</p>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <Label htmlFor="service" className="mb-1 block">
+              Service Interest
+            </Label>
+            <Select
+              value={formData.service}
+              onValueChange={(v) => handleSelectChange('service', v)}
+            >
+              <SelectTrigger id="service" className={cn(errors.service && "border-destructive")}>
+                <SelectValue placeholder="Select a service" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="repair">Repair/Maintenance</SelectItem>
+                <SelectItem value="install">Install/Relocation</SelectItem>
+                <SelectItem value="premier">Premier Maintenance Partnership</SelectItem>
+                <SelectItem value="inspection">Free 30 Minute Inspection/Evaluation</SelectItem>
+                <SelectItem value="other">Other Questions</SelectItem>
+              </SelectContent>
+            </Select>
+            {errors.service && (
+              <p className="mt-1 text-sm text-destructive">{errors.service}</p>
+            )}
+          </div>
+
+          <div>
+            <Label htmlFor="message" className="mb-1 block">
+              Message
+            </Label>
+            <Textarea
+              id="message"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              rows={3}
+              className={cn(errors.message && "border-destructive")}
+              placeholder="Tell us about your studio's needs..."
+            />
+            {errors.message && (
+              <p className="mt-1 text-sm text-destructive">{errors.message}</p>
+            )}
+          </div>
+
+          <Button type="submit" disabled={isSubmitting} className="w-full">
+            {isSubmitting ? (
+              <>
+                <Loader2 className="w-5 h-5 animate-spin mr-2" />
+                Sending...
+              </>
+            ) : submitStatus === 'success' ? (
+              'Message Sent!'
+            ) : submitStatus === 'error' ? (
+              'Failed to Send - Try Again'
+            ) : (
+              'Send Message'
+            )}
+          </Button>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 }
