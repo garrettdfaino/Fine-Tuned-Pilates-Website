@@ -11,41 +11,69 @@ html {
   :root {
     color-scheme: light;
 
-    --background: 0 0% 100%;
-    --foreground: 220 60% 10%;
+    --background: 210 33% 96%;
+    --foreground: 211 69% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 220 60% 10%;
+    --card-foreground: 211 69% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 220 60% 10%;
+    --popover-foreground: 211 69% 10%;
 
-    --primary: 219 79% 42%;
+    --primary: 220 90% 44%;
     --primary-foreground: 0 0% 100%;
+    --primary-deep: 220 82% 35%;
 
-    --secondary: 210 33% 97%;
-    --secondary-foreground: 220 60% 10%;
-    --muted: 210 33% 97%;
-    --muted-foreground: 215 18% 42%;
-    --accent: 210 33% 97%;
-    --accent-foreground: 220 60% 10%;
+    --secondary: 210 20% 100%;
+    --secondary-foreground: 211 69% 10%;
+    --muted: 210 20% 92%;
+    --muted-foreground: 213 17% 43%;
+    --accent: 210 20% 92%;
+    --accent-foreground: 211 69% 10%;
 
-    --destructive: 0 72% 45%;
+    --destructive: 3 72% 44%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 25% 88%;
-    --input: 214 20% 60%;
-    --ring: 219 79% 42%;
+    --border: 212 28% 86%;
+    --border-strong: 212 23% 76%;
+    --input: 213 16% 57%;
+    --ring: 220 90% 44%;
 
-    --radius: 0.25rem;
+    --radius: 0rem;
 
-    --ink: 220 60% 10%;
-    --ink-soft: 220 45% 16%;
+    --ink: 211 69% 10%;
     --ink-foreground: 0 0% 100%;
-    --ink-muted: 212 30% 76%;
-    --azure: 205 100% 66%;
-    --warning: 38 92% 42%;
+    --ink-mist: 211 27% 65%;
+    --tick: 202 100% 75%;
+
+    --brass: 39 80% 31%;
+    --brass-lit: 40 73% 56%;
   }
 
   * { @apply border-border; }
   body { @apply bg-background text-foreground font-sans antialiased; }
   ::selection { background-color: hsl(var(--primary)); color: #fff; }
+}
+
+@layer components {
+  .rule-calibrated {
+    position: relative;
+    height: 9px;
+    background-image:
+      linear-gradient(to right, hsl(var(--border-strong)) 0 100%),
+      repeating-linear-gradient(to right, hsl(var(--border-strong)) 0 1px, transparent 1px 10px);
+    background-size: 100% 1px, 100% 9px;
+    background-position: 0 0, 0 0;
+    background-repeat: no-repeat, repeat-x;
+  }
+  .rule-calibrated--ink {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.18) 0 100%),
+      repeating-linear-gradient(to right, rgb(255 255 255 / 0.18) 0 1px, transparent 1px 10px);
+  }
+  .plate {
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+  }
+  .plate-focus:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: -4px;
+  }
 }

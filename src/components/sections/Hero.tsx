@@ -33,10 +33,10 @@ function AnimatedCounter({ end, label }: { end: number; label: string }) {
 
   return (
     <div ref={ref}>
-      <div className="font-display font-semibold tabular-nums tracking-[-0.04em] text-[clamp(3rem,7vw,5rem)] leading-none text-white">
+      <div className="font-display font-semibold tabular-nums text-[clamp(3.5rem,8vw,6rem)] leading-[0.85] text-white">
         {count}+
       </div>
-      <div className="mt-2 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-azure">
+      <div className="mt-2 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-tick">
         {label}
       </div>
     </div>
@@ -65,7 +65,7 @@ export function Hero({ setShowContactModal }: HeroProps) {
   };
 
   return (
-    <section id="home" className="relative isolate flex min-h-[88svh] items-end overflow-hidden bg-ink md:min-h-[92svh]">
+    <section id="home" className="relative isolate flex min-h-[92svh] items-end overflow-hidden bg-ink">
       <img
         src="https://github.com/garrettdfaino/Pictures-for-FTP/blob/main/moving-6.jpg?raw=true"
         alt=""
@@ -74,21 +74,25 @@ export function Hero({ setShowContactModal }: HeroProps) {
         loading="eager"
         fetchPriority="high"
       />
-      <div className="absolute inset-0 -z-10 bg-ink/55" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/70 to-ink/20" />
-      <Container className="relative pb-14 pt-40 md:pb-20 md:pt-48">
+      <div className="absolute inset-0 -z-10 bg-ink/60" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/85 to-ink/30" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-tr from-ink/70 via-transparent to-transparent" />
+      <Container className="relative pb-16 pt-40 md:pb-24 md:pt-48">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
           className="flex flex-col items-start"
         >
-          <h1 className="max-w-[22ch] font-display font-semibold tracking-[-0.035em] leading-[0.92] text-[clamp(2.75rem,8vw,6.5rem)] text-white">
-            We Keep Your
-            <br />
-            Pilates Equipment Moving
-          </h1>
-          <p className="mt-8 max-w-[52ch] text-lg leading-[1.6] text-ink-muted md:text-xl">
+          <div className="max-w-[18ch]">
+            <h1 className="font-display font-semibold uppercase tracking-[-0.01em] leading-[0.88] text-[clamp(3rem,10vw,8rem)] text-white">
+              We Keep Your
+              <br />
+              Pilates Equipment Moving
+            </h1>
+          </div>
+          <div className="rule-calibrated rule-calibrated--ink my-8 max-w-md" />
+          <p className="max-w-[52ch] text-lg leading-[1.6] text-ink-mist md:text-xl">
             {heroContent.subtitle}
           </p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
@@ -96,7 +100,7 @@ export function Hero({ setShowContactModal }: HeroProps) {
               onClick={handleScheduleService}
               size="xl"
               variant="inverse"
-              className="rounded-none w-full sm:w-auto"
+              className="w-full sm:w-auto"
             >
               Schedule Service
               <ArrowRight className="ml-2 h-4 w-4" />
@@ -104,16 +108,20 @@ export function Hero({ setShowContactModal }: HeroProps) {
             <Button
               onClick={handleViewServices}
               size="xl"
-              variant="onInk"
-              className="rounded-none w-full sm:w-auto"
+              variant="outlineOnInk"
+              className="w-full sm:w-auto"
             >
               View Services
               <ChevronRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
-          <div className="mt-16 grid grid-cols-2 gap-8 border-t border-white/15 pt-8 md:mt-20 md:flex md:gap-20">
-            <AnimatedCounter end={30} label="Studios" />
-            <AnimatedCounter end={220} label="Reformers Covered" />
+          <div className="plate mt-14 grid grid-cols-2 divide-x divide-white/15 border border-white/15 bg-white/[0.04] backdrop-blur-sm">
+            <div className="px-6 py-7">
+              <AnimatedCounter end={30} label="Studios" />
+            </div>
+            <div className="px-6 py-7">
+              <AnimatedCounter end={220} label="Reformers Covered" />
+            </div>
           </div>
         </motion.div>
       </Container>

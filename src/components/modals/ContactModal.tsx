@@ -206,20 +206,21 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
     }
   };
 
-  const labelClasses = "mb-2 block text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-muted-foreground";
-  const fieldClasses = "h-11 rounded-none border-input bg-background";
+  const labelClasses = "mb-2 block font-mono text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-muted-foreground";
+  const fieldClasses = "h-11 rounded-none border-input bg-white";
 
   return (
     <Dialog open={showContactModal} onOpenChange={setShowContactModal}>
-      <DialogContent className="sm:max-w-xl max-h-[90vh] overflow-y-auto rounded-none p-0">
+      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto rounded-none p-0">
         <div className="p-8 md:p-10">
           <DialogHeader>
-            <DialogTitle className="font-display text-3xl font-semibold tracking-[-0.02em]">
+            <DialogTitle className="font-display text-3xl font-semibold uppercase tracking-[-0.01em]">
               Let us help you!
             </DialogTitle>
           </DialogHeader>
+          <div className="rule-calibrated mt-6" />
 
-          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+          <form onSubmit={handleSubmit} className="mt-8 space-y-4">
             <div>
               <Label htmlFor="name" className={labelClasses}>
                 Your Name
@@ -368,7 +369,7 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
                 value={formData.message}
                 onChange={handleChange}
                 rows={3}
-                className={cn("rounded-none border-input bg-background", errors.message && "border-destructive")}
+                className={cn("rounded-none border-input bg-white", errors.message && "border-destructive")}
                 placeholder="Tell us about your studio's needs..."
               />
               {errors.message && (

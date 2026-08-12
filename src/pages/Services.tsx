@@ -4,7 +4,7 @@ import { Wrench, PackageCheck, CheckCircle2, ArrowRight, AlertTriangle, ShieldAl
 import { useLocation } from 'react-router-dom';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { Container } from '@/components/layout/Section';
+import { Container, Index } from '@/components/layout/Section';
 
 interface ServicesProps {
   setShowContactModal?: (show: boolean) => void;
@@ -56,51 +56,6 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
   };
 
   const tabContent: Record<string, TabContentEntry> = {
-    'why-maintenance': {
-      title: "Why Do I Need Maintenance?",
-      icon: AlertTriangle,
-      summary: "Regular maintenance is essential to keep your Pilates studio running safely, efficiently, and within compliance. It ensures your equipment performs at its best, extends its lifespan, and protects your business from potential liability issues. Without regular care, even minor issues can escalate into major problems that could compromise client safety and lead to costly repairs or legal complications.",
-      description: [
-        "Prevent equipment failures and accidents",
-        "Protect against liability claims",
-        "Extend equipment lifespan",
-        "Maintain manufacturer warranties",
-        "Ensure client safety and satisfaction",
-        "Comply with insurance requirements"
-      ],
-      features: [
-        {
-          title: "Preventative Care",
-          description: "Regular inspections, cleaning, lubrication, and adjustments help keep your equipment in top condition, preventing minor issues from turning into major failures."
-        },
-        {
-          title: "Legal Protection",
-          description: "Regular maintenance records provide crucial documentation to defend against negligence claims."
-        },
-        {
-          title: "Documentation & Compliance",
-          description: "Comprehensive maintenance logs provide a transparent record of care, meeting manufacturer guidelines and satisfying liability insurers' requirements."
-        }
-      ],
-      risks: [
-        {
-          icon: ShieldAlert,
-          title: "Safety",
-          description: "Studios can face serious legal consequences for accidents caused by poorly maintained equipment."
-        },
-        {
-          icon: DollarSign,
-          title: "Financial Impact",
-          description: "Emergency repairs and replacements can cost 3-4 times more than regular maintenance."
-        },
-        {
-          icon: Clock,
-          title: "Legal & Financial Liability",
-          description: "Without documented maintenance, studios can face allegations of gross neglect, potentially resulting in denied insurance claims and legal action."
-        }
-      ],
-      image: "https://github.com/garrettdfaino/Pictures-for-FTP/blob/main/tuning-4.jpg?raw=true"
-    },
     maintenance: {
       title: "Equipment Maintenance",
       icon: Wrench,
@@ -160,6 +115,51 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
         }
       ],
       image: "https://github.com/garrettdfaino/Pictures-for-FTP/blob/main/tuning-5.jpg?raw=true"
+    },
+    'why-maintenance': {
+      title: "Why Do I Need Maintenance?",
+      icon: AlertTriangle,
+      summary: "Regular maintenance is essential to keep your Pilates studio running safely, efficiently, and within compliance. It ensures your equipment performs at its best, extends its lifespan, and protects your business from potential liability issues. Without regular care, even minor issues can escalate into major problems that could compromise client safety and lead to costly repairs or legal complications.",
+      description: [
+        "Prevent equipment failures and accidents",
+        "Protect against liability claims",
+        "Extend equipment lifespan",
+        "Maintain manufacturer warranties",
+        "Ensure client safety and satisfaction",
+        "Comply with insurance requirements"
+      ],
+      features: [
+        {
+          title: "Preventative Care",
+          description: "Regular inspections, cleaning, lubrication, and adjustments help keep your equipment in top condition, preventing minor issues from turning into major failures."
+        },
+        {
+          title: "Legal Protection",
+          description: "Regular maintenance records provide crucial documentation to defend against negligence claims."
+        },
+        {
+          title: "Documentation & Compliance",
+          description: "Comprehensive maintenance logs provide a transparent record of care, meeting manufacturer guidelines and satisfying liability insurers' requirements."
+        }
+      ],
+      risks: [
+        {
+          icon: ShieldAlert,
+          title: "Safety",
+          description: "Studios can face serious legal consequences for accidents caused by poorly maintained equipment."
+        },
+        {
+          icon: DollarSign,
+          title: "Financial Impact",
+          description: "Emergency repairs and replacements can cost 3-4 times more than regular maintenance."
+        },
+        {
+          icon: Clock,
+          title: "Legal & Financial Liability",
+          description: "Without documented maintenance, studios can face allegations of gross neglect, potentially resulting in denied insurance claims and legal action."
+        }
+      ],
+      image: "https://github.com/garrettdfaino/Pictures-for-FTP/blob/main/tuning-4.jpg?raw=true"
     },
     installation: {
       title: "Installation & Assembly",
@@ -233,8 +233,8 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
           <div className="space-y-8 lg:col-span-6">
             <div>
               <div className="mb-4 flex items-center gap-3">
-                <IconComponent className="h-6 w-6 text-primary" />
-                <h2 className="font-display text-3xl font-semibold tracking-[-0.02em] text-foreground md:text-[2.5rem]">
+                <IconComponent className="h-5 w-5 text-primary" />
+                <h2 className="font-display text-3xl font-semibold uppercase leading-[1.02] text-foreground md:text-[2.5rem]">
                   {content.title}
                 </h2>
               </div>
@@ -242,8 +242,9 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
                 {content.summary}
               </p>
             </div>
+            <div className="rule-calibrated mb-8" />
             <motion.div
-              className="grid gap-x-10 gap-y-4 border-t border-border pt-8 sm:grid-cols-2"
+              className="grid gap-x-12 gap-y-3 pt-8 sm:grid-cols-2"
               variants={listVariants}
               initial="hidden"
               whileInView="visible"
@@ -252,11 +253,11 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
               {content.description.map((item, index) => (
                 <motion.div
                   key={index}
-                  className="flex items-center space-x-3"
+                  className="flex items-baseline gap-3 border-b border-border/70 py-2"
                   variants={itemVariants}
                 >
-                  <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0" />
-                  <span className="text-muted-foreground">{item}</span>
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-primary" />
+                  <span className="font-mono text-[0.8125rem] text-foreground">{item}</span>
                 </motion.div>
               ))}
             </motion.div>
@@ -283,7 +284,8 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
                 transition={{ delay: index * 0.1 }}
                 className="md:px-8 first:md:pl-0 last:md:pr-0"
               >
-                <h4 className="font-display text-xl font-semibold text-foreground mb-3">{feature.title}</h4>
+                <Index n={index + 1} className="mb-3 block" />
+                <h4 className="font-sans text-lg font-semibold text-foreground mb-2">{feature.title}</h4>
                 <p className="text-muted-foreground">{feature.description}</p>
               </motion.div>
             ))}
@@ -291,12 +293,12 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
         </div>
 
         {/* Risks Section for Why Maintenance Tab */}
-        {key === 'why-maintenance' && (
-          <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen bg-ink px-6 py-20 text-ink-foreground sm:px-8 lg:px-12">
-            <div className="mx-auto max-w-[88rem]">
-              <h3 className="text-2xl font-bold text-ink-foreground mb-8">Risks of Poor Maintenance</h3>
+        {content.risks && content.risks.length > 0 && (
+          <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen bg-ink px-5 py-20 text-white sm:px-8 lg:px-14">
+            <div className="mx-auto max-w-[92rem]">
+              <h3 className="text-2xl font-bold text-white mb-10">Risks of Poor Maintenance</h3>
               <div className="grid gap-10 md:grid-cols-3 md:divide-x md:divide-white/12">
-                {content.risks?.map((risk, index) => (
+                {content.risks.map((risk, index) => (
                   <motion.div
                     key={risk.title}
                     initial={{ opacity: 0, y: 20 }}
@@ -304,9 +306,9 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
                     transition={{ delay: index * 0.1 }}
                     className="md:px-8 first:md:pl-0 last:md:pr-0"
                   >
-                    <risk.icon className="h-8 w-8 text-azure mb-4" />
-                    <h4 className="text-xl font-semibold text-ink-foreground mb-3">{risk.title}</h4>
-                    <p className="text-ink-muted">{risk.description}</p>
+                    <risk.icon className="h-8 w-8 text-brass-lit mb-4" />
+                    <h4 className="text-xl font-semibold text-white mb-3">{risk.title}</h4>
+                    <p className="text-ink-mist">{risk.description}</p>
                   </motion.div>
                 ))}
               </div>
@@ -328,7 +330,13 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <div className="border border-border p-8 md:p-12">
+                  <div className="plate border border-border bg-white p-8 md:p-12">
+                    <div className="mb-6 flex items-center gap-3">
+                      <span className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-muted-foreground">
+                        PLAN <Index n={index + 1} className="inline" />
+                      </span>
+                    </div>
+                    <div className="rule-calibrated mb-8" />
                     <div className="flex items-center gap-3 mb-6">
                       {plan.icon && <plan.icon className="h-6 w-6 text-primary" />}
                       <h4 className="font-display text-2xl md:text-3xl font-semibold text-foreground">{plan.plan}</h4>
@@ -338,7 +346,7 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
                     {plan.services && plan.benefits ? (
                       <div className="grid md:grid-cols-2 md:gap-12 md:divide-x md:divide-border">
                         <div>
-                          <h5 className="mb-4 flex items-center gap-2 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                          <h5 className="mb-4 flex items-center gap-2 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-muted-foreground">
                             <Wrench className="w-4 h-4 text-primary" />
                             Services Provided
                           </h5>
@@ -362,7 +370,7 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
                           </motion.ul>
                         </div>
                         <div className="md:pl-12">
-                          <h5 className="mb-4 flex items-center gap-2 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                          <h5 className="mb-4 flex items-center gap-2 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-muted-foreground">
                             <Star className="w-4 h-4 text-primary" />
                             Partnership Benefits
                           </h5>
@@ -410,7 +418,7 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
                     <Button
                       onClick={handleGetStarted}
                       size="xl"
-                      className="w-full rounded-none sm:w-auto"
+                      className="w-full sm:w-auto"
                     >
                       Get Started
                       <ArrowRight className="ml-2 h-5 w-5" />
@@ -430,7 +438,7 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
       <Container className="pb-24">
         {/* Services Introduction */}
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
-          <h1 className="font-display font-semibold tracking-[-0.03em] leading-[1.03] text-[clamp(2rem,5vw,4rem)] text-foreground lg:col-span-7">
+          <h1 className="font-display font-semibold uppercase tracking-[-0.01em] leading-[0.95] text-[clamp(2.25rem,6vw,4.5rem)] text-foreground lg:col-span-7">
             Our Services
           </h1>
           <p className="text-lg leading-[1.6] text-muted-foreground lg:col-span-5">
@@ -443,17 +451,20 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
         {/* Tabs */}
         <div id="services-tabs">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="mt-16 h-auto w-full justify-start gap-8 overflow-x-auto rounded-none border-b border-border bg-transparent p-0 [&::-webkit-scrollbar]:hidden">
-              {Object.entries(tabContent).map(([key, { title }]) => (
+            <TabsList className="mt-16 h-auto w-full justify-start gap-10 overflow-x-auto rounded-none border-0 bg-transparent p-0 [&::-webkit-scrollbar]:hidden">
+              {Object.entries(tabContent).map(([key, { title }], index) => (
                 <TabsTrigger
                   key={key}
                   value={key}
-                  className="shrink-0 whitespace-nowrap rounded-none border-b-2 border-transparent px-0 pb-4 text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-muted-foreground shadow-none data-[state=active]:border-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none"
+                  className="group relative shrink-0 whitespace-nowrap rounded-none bg-transparent px-0 pb-4 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-muted-foreground shadow-none data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none"
                 >
+                  <Index n={index + 1} className="mr-2 inline text-muted-foreground/70" />
                   {title}
+                  <span className="absolute inset-x-0 -bottom-[1px] h-0.5 origin-left scale-x-0 bg-primary transition-transform duration-300 group-data-[state=active]:scale-x-100" />
                 </TabsTrigger>
               ))}
             </TabsList>
+            <div className="rule-calibrated" />
 
             {Object.entries(tabContent).map(([key, content]) => (
               <TabsContent key={key} value={key}>

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Section, Container } from '@/components/layout/Section';
+import { Section, Container, Eyebrow } from '@/components/layout/Section';
 
 const testimonials = [
   {
@@ -24,7 +24,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <Section id="testimonials" tone="surface">
+    <Section id="testimonials" tone="white">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -32,10 +32,8 @@ export function Testimonials() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-primary">
-            What Studio Owners Say
-          </h2>
-          <p className="mt-4 font-display font-semibold tracking-[-0.03em] leading-[1.03] text-[clamp(2rem,5vw,4rem)]">
+          <Eyebrow className="text-primary">What Studio Owners Say</Eyebrow>
+          <p className="mt-4 font-display font-semibold tracking-[-0.01em] leading-[0.95] text-[clamp(2.25rem,6vw,4.5rem)] lg:max-w-[24ch]">
             Discover the difference expert maintenance makes
           </p>
         </motion.div>
@@ -47,22 +45,25 @@ export function Testimonials() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
-              className="grid gap-6 py-12 md:grid-cols-12 md:gap-12 md:py-16"
+              transition={{ duration: 0.8, delay: index * 0.15 }}
+              className="grid gap-6 py-12 md:grid-cols-12 md:gap-10 md:py-16"
             >
               <div className="md:col-span-3">
+                <span className="font-mono text-[0.6875rem] text-muted-foreground">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
                 <img
                   src={testimonial.logo}
                   alt={`${testimonial.role} logo`}
                   loading="lazy"
-                  className="h-9 w-auto object-contain grayscale opacity-60 transition duration-500 hover:grayscale-0 hover:opacity-100"
+                  className="mt-3 h-8 w-auto object-contain grayscale opacity-55 transition hover:grayscale-0 hover:opacity-100"
                 />
-                <figcaption className="mt-5">
-                  <p className="font-display text-lg font-semibold">{testimonial.name}</p>
-                  <p className="mt-1 text-xs uppercase tracking-[0.12em] text-muted-foreground">{testimonial.role}</p>
+                <figcaption className="mt-4">
+                  <p className="font-display text-xl font-semibold uppercase">{testimonial.name}</p>
+                  <p className="mt-1 font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">{testimonial.role}</p>
                 </figcaption>
               </div>
-              <blockquote className="max-w-[62ch] font-serif text-xl leading-[1.5] text-foreground md:col-span-8 md:col-start-5 md:text-[1.6rem]">
+              <blockquote className="border-l-2 border-primary pl-6 text-[1.0625rem] leading-[1.7] text-foreground md:col-span-8 md:col-start-5 md:text-lg max-w-[64ch]">
                 {testimonial.text}
               </blockquote>
             </motion.figure>
