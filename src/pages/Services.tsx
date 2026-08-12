@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Wrench, PackageCheck, CheckCircle2, ArrowRight, AlertTriangle, ShieldAlert, DollarSign, Clock, Handshake, Settings, Star } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
@@ -8,9 +8,15 @@ interface ServicesProps {
 }
 
 const Services = ({ setShowContactModal }: ServicesProps) => {
-  const [activeTab, setActiveTab] = useState('maintenance');
   const location = useLocation();
-  const state = location.state as { scrollToSection?: string };
+  const state = location.state as { scrollToSection?: string } | null;
+  const [activeTab, setActiveTab] = useState(state?.scrollToSection ?? 'maintenance');
+
+  useEffect(() => {
+    if (state?.scrollToSection) {
+      setActiveTab(state.scrollToSection);
+    }
+  }, [state?.scrollToSection]);
 
   const handleGetStarted = () => {
     setShowContactModal?.(true);
