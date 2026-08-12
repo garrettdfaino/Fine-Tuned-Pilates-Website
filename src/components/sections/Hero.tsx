@@ -87,8 +87,8 @@ export function Hero({ setShowContactModal }: HeroProps) {
               </div>
               <div className="flex flex-col gap-4 lg:ml-12 lg:mt-8">
                 <div className="flex flex-col gap-4">
-                  <AnimatedCounter end={22} label="Studios" />
-                  <AnimatedCounter end={180} label="Reformers Covered" />
+                  <AnimatedCounter end={30} label="Studios" />
+                  <AnimatedCounter end={220} label="Reformers Covered" />
                 </div>
               </div>
             </div>
