@@ -7,7 +7,7 @@ export function SafetyCallout() {
   const navigate = useNavigate();
 
   const handleMaintenanceClick = () => {
-    navigate('/services');
+    navigate('/services', { state: { scrollToSection: 'why-maintenance' } });
     window.scrollTo(0, 0);
   };
 
