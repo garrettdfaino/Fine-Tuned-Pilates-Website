@@ -1,11 +1,16 @@
+import defaultTheme from 'tailwindcss/defaultTheme';
 import tailwindcssAnimate from 'tailwindcss-animate';
 
-/** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ["class"],
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        sans:    ['Inter', ...defaultTheme.fontFamily.sans],
+        display: ['"Inter Tight"', 'Inter', ...defaultTheme.fontFamily.sans],
+        serif:   ['"Instrument Serif"', 'Georgia', ...defaultTheme.fontFamily.serif],
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -19,12 +24,17 @@ export default {
         accent:    { DEFAULT: 'hsl(var(--accent))',    foreground: 'hsl(var(--accent-foreground))' },
         popover:   { DEFAULT: 'hsl(var(--popover))',   foreground: 'hsl(var(--popover-foreground))' },
         card:      { DEFAULT: 'hsl(var(--card))',      foreground: 'hsl(var(--card-foreground))' },
-        brand:     { surface: 'hsl(var(--brand-surface))', 'surface-foreground': 'hsl(var(--brand-surface-foreground))' },
-        warning:   { DEFAULT: 'hsl(var(--warning))',   soft: 'hsl(var(--warning-soft))' },
+        ink: {
+          DEFAULT:     'hsl(var(--ink))',
+          soft:        'hsl(var(--ink-soft))',
+          foreground:  'hsl(var(--ink-foreground))',
+          muted:       'hsl(var(--ink-muted))',
+        },
+        azure: 'hsl(var(--azure))',
+        warning: 'hsl(var(--warning))',
       },
       borderRadius: { lg: 'var(--radius)', md: 'calc(var(--radius) - 2px)', sm: 'calc(var(--radius) - 4px)' },
-      boxShadow: { glow: '0 0 40px hsl(var(--primary))' },
-      backgroundImage: { 'glow-radial': 'radial-gradient(circle at center, hsl(var(--primary)) 0%, transparent 70%)' },
+      transitionTimingFunction: { editorial: 'cubic-bezier(0.22, 1, 0.36, 1)' },
       keyframes: {
         'accordion-down': { from: { height: '0' }, to: { height: 'var(--radix-accordion-content-height)' } },
         'accordion-up':   { from: { height: 'var(--radix-accordion-content-height)' }, to: { height: '0' } },

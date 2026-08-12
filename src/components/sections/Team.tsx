@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { GraduationCap } from 'lucide-react';
-import { Card } from '@/components/ui/card';
+import { Section, Container } from '@/components/layout/Section';
+import { cn } from '@/lib/utils';
 
 const teamMembers = [
   {
@@ -21,22 +22,23 @@ const teamMembers = [
 
 export function Team() {
   return (
-    <section id="team" className="py-16 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <Section id="team" tone="light">
+      <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">Meet Our Team</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <h2 className="text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-primary">
+            Meet Our Team
+          </h2>
+          <p className="mt-4 font-display font-semibold tracking-[-0.03em] leading-[1.03] text-[clamp(2rem,5vw,4rem)] lg:max-w-[24ch]">
             Our experts bring decades of combined experience in Pilates equipment, studio setup, and training
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="mt-16 grid gap-16 md:mt-24 lg:grid-cols-12 lg:gap-x-16">
           {teamMembers.map((member, index) => (
             <motion.div
               key={member.name}
@@ -44,35 +46,42 @@ export function Team() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2, duration: 0.8 }}
+              className={
+                index === 0
+                  ? 'lg:col-span-6'
+                  : 'lg:col-span-5 lg:col-start-8 lg:mt-40'
+              }
             >
-              <Card className="relative bg-brand-surface text-brand-surface-foreground shadow-glow rounded-xl p-6 overflow-hidden">
-                {/* Radial gradient background */}
-                <div className="absolute inset-0 opacity-10 bg-glow-radial" />
-                <div className="relative">
-                  <div className="relative overflow-hidden rounded-xl aspect-square mb-4">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className={`object-cover w-full h-full transition-transform duration-500 hover:scale-110 ${
-                        member.name === "Dennis Faino" ? "object-[50%_35%]" : "object-[50%_65%]"
-                      }`}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="text-2xl font-bold text-brand-surface-foreground">{member.name}</h3>
-                    <p className="text-lg font-medium text-brand-surface-foreground/90">{member.role}</p>
-                    <p className="text-lg text-brand-surface-foreground/90 leading-relaxed">{member.bio}</p>
-                    <div className="flex items-center gap-2 pt-2">
-                      <GraduationCap className="w-5 h-5 text-brand-surface-foreground/90" />
-                      <p className="text-lg text-brand-surface-foreground/90 font-medium italic">{member.certification}</p>
-                    </div>
-                  </div>
-                </div>
-              </Card>
+              <div className="group overflow-hidden">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  loading="lazy"
+                  className={cn(
+                    'aspect-[3/4] w-full object-cover transition-transform duration-700 ease-editorial group-hover:scale-[1.04]',
+                    member.name === "Dennis Faino" ? "object-[50%_35%]" : "object-[50%_65%]"
+                  )}
+                />
+              </div>
+              <p className="mt-6 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-primary">
+                {member.role}
+              </p>
+              <h3 className="mt-2 font-display text-3xl font-semibold tracking-[-0.02em] md:text-4xl">
+                {member.name}
+              </h3>
+              <p className="mt-4 max-w-[52ch] text-base leading-[1.75] text-muted-foreground">
+                {member.bio}
+              </p>
+              <div className="mt-6 flex items-start gap-2 border-t border-border pt-4">
+                <GraduationCap className="h-4 w-4 shrink-0 text-primary" />
+                <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">
+                  {member.certification}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

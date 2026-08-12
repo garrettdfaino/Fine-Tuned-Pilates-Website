@@ -4,6 +4,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 7rem;
 }
 
 @layer base {
@@ -11,38 +12,40 @@ html {
     color-scheme: light;
 
     --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
-
+    --foreground: 220 60% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 220 60% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 220 60% 10%;
 
-    --primary: 215 25% 65%;
-    --primary-foreground: 222 47% 11%;
+    --primary: 219 79% 42%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 11%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222 47% 11%;
+    --secondary: 210 33% 97%;
+    --secondary-foreground: 220 60% 10%;
+    --muted: 210 33% 97%;
+    --muted-foreground: 215 18% 42%;
+    --accent: 210 33% 97%;
+    --accent-foreground: 220 60% 10%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 215 25% 65%;
+    --border: 214 25% 88%;
+    --input: 214 20% 60%;
+    --ring: 219 79% 42%;
 
-    --radius: 0.75rem;
+    --radius: 0.25rem;
 
-    --brand-surface: 215 16% 47%;
-    --brand-surface-foreground: 0 0% 100%;
-    --warning: 43 100% 50%;
-    --warning-soft: 46 100% 95%;
+    --ink: 220 60% 10%;
+    --ink-soft: 220 45% 16%;
+    --ink-foreground: 0 0% 100%;
+    --ink-muted: 212 30% 76%;
+    --azure: 205 100% 66%;
+    --warning: 38 92% 42%;
   }
 
   * { @apply border-border; }
-  body { @apply bg-background text-foreground; }
+  body { @apply bg-background text-foreground font-sans antialiased; }
+  ::selection { background-color: hsl(var(--primary)); color: #fff; }
 }

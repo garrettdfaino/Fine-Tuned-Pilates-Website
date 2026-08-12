@@ -206,185 +206,192 @@ export function ContactModal({ showContactModal, setShowContactModal }: ContactM
     }
   };
 
+  const labelClasses = "mb-2 block text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-muted-foreground";
+  const fieldClasses = "h-11 rounded-none border-input bg-background";
+
   return (
     <Dialog open={showContactModal} onOpenChange={setShowContactModal}>
-      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle>Let us help you!</DialogTitle>
-        </DialogHeader>
+      <DialogContent className="sm:max-w-xl max-h-[90vh] overflow-y-auto rounded-none p-0">
+        <div className="p-8 md:p-10">
+          <DialogHeader>
+            <DialogTitle className="font-display text-3xl font-semibold tracking-[-0.02em]">
+              Let us help you!
+            </DialogTitle>
+          </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <Label htmlFor="name" className="mb-1 block">
-              Your Name
-            </Label>
-            <Input
-              id="name"
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className={cn(errors.name && "border-destructive")}
-              placeholder="John Doe"
-            />
-            {errors.name && (
-              <p className="mt-1 text-sm text-destructive">{errors.name}</p>
-            )}
-          </div>
-
-          <div>
-            <Label htmlFor="studio_name" className="mb-1 block">
-              Studio Name
-            </Label>
-            <Input
-              id="studio_name"
-              type="text"
-              name="studio_name"
-              value={formData.studio_name}
-              onChange={handleChange}
-              className={cn(errors.studio_name && "border-destructive")}
-              placeholder="Your Pilates Studio"
-            />
-            {errors.studio_name && (
-              <p className="mt-1 text-sm text-destructive">{errors.studio_name}</p>
-            )}
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <div>
-              <Label htmlFor="city" className="mb-1 block">
-                City
+              <Label htmlFor="name" className={labelClasses}>
+                Your Name
               </Label>
               <Input
-                id="city"
+                id="name"
                 type="text"
-                name="city"
-                value={formData.city}
+                name="name"
+                value={formData.name}
                 onChange={handleChange}
-                className={cn(errors.city && "border-destructive")}
-                placeholder="City"
+                className={cn(fieldClasses, errors.name && "border-destructive")}
+                placeholder="John Doe"
               />
-              {errors.city && (
-                <p className="mt-1 text-sm text-destructive">{errors.city}</p>
+              {errors.name && (
+                <p className="mt-1 text-sm text-destructive">{errors.name}</p>
               )}
             </div>
+
             <div>
-              <Label htmlFor="state" className="mb-1 block">
-                State
+              <Label htmlFor="studio_name" className={labelClasses}>
+                Studio Name
+              </Label>
+              <Input
+                id="studio_name"
+                type="text"
+                name="studio_name"
+                value={formData.studio_name}
+                onChange={handleChange}
+                className={cn(fieldClasses, errors.studio_name && "border-destructive")}
+                placeholder="Your Pilates Studio"
+              />
+              {errors.studio_name && (
+                <p className="mt-1 text-sm text-destructive">{errors.studio_name}</p>
+              )}
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="city" className={labelClasses}>
+                  City
+                </Label>
+                <Input
+                  id="city"
+                  type="text"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleChange}
+                  className={cn(fieldClasses, errors.city && "border-destructive")}
+                  placeholder="City"
+                />
+                {errors.city && (
+                  <p className="mt-1 text-sm text-destructive">{errors.city}</p>
+                )}
+              </div>
+              <div>
+                <Label htmlFor="state" className={labelClasses}>
+                  State
+                </Label>
+                <Select
+                  value={formData.state}
+                  onValueChange={(v) => handleSelectChange('state', v)}
+                >
+                  <SelectTrigger id="state" className={cn(fieldClasses, errors.state && "border-destructive")}>
+                    <SelectValue placeholder="Select State" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {states.map(st => (
+                      <SelectItem key={st} value={st}>{st}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {errors.state && (
+                  <p className="mt-1 text-sm text-destructive">{errors.state}</p>
+                )}
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="phone_number" className={labelClasses}>
+                  Phone Number
+                </Label>
+                <Input
+                  id="phone_number"
+                  type="tel"
+                  name="phone_number"
+                  value={formData.phone_number}
+                  onChange={handleChange}
+                  className={cn(fieldClasses, errors.phone_number && "border-destructive")}
+                  placeholder="(123) 456-7890"
+                />
+                {errors.phone_number && (
+                  <p className="mt-1 text-sm text-destructive">{errors.phone_number}</p>
+                )}
+              </div>
+              <div>
+                <Label htmlFor="email" className={labelClasses}>
+                  Email
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={cn(fieldClasses, errors.email && "border-destructive")}
+                  placeholder="studio@example.com"
+                />
+                {errors.email && (
+                  <p className="mt-1 text-sm text-destructive">{errors.email}</p>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="service" className={labelClasses}>
+                Service Interest
               </Label>
               <Select
-                value={formData.state}
-                onValueChange={(v) => handleSelectChange('state', v)}
+                value={formData.service}
+                onValueChange={(v) => handleSelectChange('service', v)}
               >
-                <SelectTrigger id="state" className={cn(errors.state && "border-destructive")}>
-                  <SelectValue placeholder="Select State" />
+                <SelectTrigger id="service" className={cn(fieldClasses, errors.service && "border-destructive")}>
+                  <SelectValue placeholder="Select a service" />
                 </SelectTrigger>
                 <SelectContent>
-                  {states.map(st => (
-                    <SelectItem key={st} value={st}>{st}</SelectItem>
-                  ))}
+                  <SelectItem value="repair">Repair/Maintenance</SelectItem>
+                  <SelectItem value="install">Install/Relocation</SelectItem>
+                  <SelectItem value="premier">Premier Maintenance Partnership</SelectItem>
+                  <SelectItem value="inspection">Free 30 Minute Inspection/Evaluation</SelectItem>
+                  <SelectItem value="other">Other Questions</SelectItem>
                 </SelectContent>
               </Select>
-              {errors.state && (
-                <p className="mt-1 text-sm text-destructive">{errors.state}</p>
+              {errors.service && (
+                <p className="mt-1 text-sm text-destructive">{errors.service}</p>
               )}
             </div>
-          </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="phone_number" className="mb-1 block">
-                Phone Number
+              <Label htmlFor="message" className={labelClasses}>
+                Message
               </Label>
-              <Input
-                id="phone_number"
-                type="tel"
-                name="phone_number"
-                value={formData.phone_number}
+              <Textarea
+                id="message"
+                name="message"
+                value={formData.message}
                 onChange={handleChange}
-                className={cn(errors.phone_number && "border-destructive")}
-                placeholder="(123) 456-7890"
+                rows={3}
+                className={cn("rounded-none border-input bg-background", errors.message && "border-destructive")}
+                placeholder="Tell us about your studio's needs..."
               />
-              {errors.phone_number && (
-                <p className="mt-1 text-sm text-destructive">{errors.phone_number}</p>
+              {errors.message && (
+                <p className="mt-1 text-sm text-destructive">{errors.message}</p>
               )}
             </div>
-            <div>
-              <Label htmlFor="email" className="mb-1 block">
-                Email
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className={cn(errors.email && "border-destructive")}
-                placeholder="studio@example.com"
-              />
-              {errors.email && (
-                <p className="mt-1 text-sm text-destructive">{errors.email}</p>
+
+            <Button type="submit" size="xl" disabled={isSubmitting} className="w-full rounded-none">
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin mr-2" />
+                  Sending...
+                </>
+              ) : submitStatus === 'success' ? (
+                'Message Sent!'
+              ) : submitStatus === 'error' ? (
+                'Failed to Send - Try Again'
+              ) : (
+                'Send Message'
               )}
-            </div>
-          </div>
-
-          <div>
-            <Label htmlFor="service" className="mb-1 block">
-              Service Interest
-            </Label>
-            <Select
-              value={formData.service}
-              onValueChange={(v) => handleSelectChange('service', v)}
-            >
-              <SelectTrigger id="service" className={cn(errors.service && "border-destructive")}>
-                <SelectValue placeholder="Select a service" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="repair">Repair/Maintenance</SelectItem>
-                <SelectItem value="install">Install/Relocation</SelectItem>
-                <SelectItem value="premier">Premier Maintenance Partnership</SelectItem>
-                <SelectItem value="inspection">Free 30 Minute Inspection/Evaluation</SelectItem>
-                <SelectItem value="other">Other Questions</SelectItem>
-              </SelectContent>
-            </Select>
-            {errors.service && (
-              <p className="mt-1 text-sm text-destructive">{errors.service}</p>
-            )}
-          </div>
-
-          <div>
-            <Label htmlFor="message" className="mb-1 block">
-              Message
-            </Label>
-            <Textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              rows={3}
-              className={cn(errors.message && "border-destructive")}
-              placeholder="Tell us about your studio's needs..."
-            />
-            {errors.message && (
-              <p className="mt-1 text-sm text-destructive">{errors.message}</p>
-            )}
-          </div>
-
-          <Button type="submit" disabled={isSubmitting} className="w-full">
-            {isSubmitting ? (
-              <>
-                <Loader2 className="w-5 h-5 animate-spin mr-2" />
-                Sending...
-              </>
-            ) : submitStatus === 'success' ? (
-              'Message Sent!'
-            ) : submitStatus === 'error' ? (
-              'Failed to Send - Try Again'
-            ) : (
-              'Send Message'
-            )}
-          </Button>
-        </form>
+            </Button>
+          </form>
+        </div>
       </DialogContent>
     </Dialog>
   );

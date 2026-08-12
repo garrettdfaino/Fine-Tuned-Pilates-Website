@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { Container } from '@/components/layout/Section';
 import {
   Sheet,
   SheetContent,
@@ -29,12 +30,11 @@ export function Header({
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === '/';
-  const [isVisible, setIsVisible] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setIsVisible(currentScrollY <= 0);
+      setIsScrolled(window.scrollY > 24);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -44,6 +44,8 @@ export function Header({
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const isTransparent = isHome && !isScrolled;
 
   const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, path: string, section: string | null) => {
     e.preventDefault();
@@ -79,11 +81,7 @@ export function Header({
 
   if (minimal) {
     return (
-      <nav
-        className={`fixed top-0 w-full z-50 bg-white border-b border-border transition-transform duration-300 ${
-          isVisible ? 'translate-y-0' : '-translate-y-full'
-        }`}
-      >
+      <nav className="fixed top-0 w-full z-50 bg-white border-b border-border transition-transform duration-300 translate-y-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
             <Link to="/" className="flex items-center space-x-3">
@@ -101,23 +99,38 @@ export function Header({
   }
 
   return (
-    <nav
-      className={`fixed w-full z-50 bg-white border-b border-border transition-transform duration-300 ${
-        isVisible ? 'translate-y-0' : '-translate-y-full'
-      }`}
+    <header
+      className={cn(
+        'fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-editorial border-b',
+        isTransparent
+          ? 'bg-transparent border-transparent'
+          : 'bg-background/90 backdrop-blur-md border-border'
+      )}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20 items-center">
+      <Container>
+        <div
+          className={cn(
+            'flex items-center justify-between transition-all duration-300 ease-editorial',
+            isTransparent ? 'h-24 lg:h-28' : 'h-16 lg:h-20'
+          )}
+        >
           <Link to="/" className="flex items-center space-x-3">
             <img
               src="https://raw.githubusercontent.com/garrettdfaino/Pictures-for-FTP/main/Fine%20Tuned%20Pilates_black-cropped.PNG"
               alt="Fine Tuned Pilates"
-              className="h-12 w-auto"
+              className={cn('h-10 w-auto transition-all duration-300', isTransparent && 'invert')}
             />
-            <span className="text-xl font-semibold text-foreground">Fine Tuned Pilates</span>
+            <span
+              className={cn(
+                'font-display text-sm font-semibold uppercase tracking-[0.2em] transition-colors duration-300',
+                isTransparent ? 'text-white' : 'text-foreground'
+              )}
+            >
+              Fine Tuned Pilates
+            </span>
           </Link>
 
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex items-center space-x-10">
             {navigationItems.map((item) => {
               const isActive = isHome
                 ? activeSection === item.section
@@ -129,11 +142,20 @@ export function Header({
                   href={item.path}
                   onClick={(e) => handleNavigation(e, item.path, item.section)}
                   className={cn(
-                    'text-lg font-medium transition-colors hover:text-primary',
-                    isActive ? 'text-primary' : 'text-muted-foreground'
+                    'relative py-2 text-xs font-medium uppercase tracking-[0.14em] transition-colors',
+                    isTransparent
+                      ? isActive
+                        ? 'text-white'
+                        : 'text-white/70 hover:text-white'
+                      : isActive
+                        ? 'text-foreground'
+                        : 'text-muted-foreground hover:text-foreground'
                   )}
                 >
                   {item.label}
+                  {isActive && (
+                    <span className="absolute -bottom-0.5 left-0 h-px w-full bg-current" />
+                  )}
                 </a>
               );
             })}
@@ -141,8 +163,10 @@ export function Header({
 
           <div className="hidden md:flex items-center space-x-6">
             <Button
+              size="xl"
+              variant={isTransparent ? 'inverse' : 'default'}
+              className="rounded-none"
               onClick={() => setShowContactModal?.(true)}
-              className="rounded-full px-6"
             >
               Get Started
             </Button>
@@ -150,32 +174,41 @@ export function Header({
 
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
+              <Button
+                variant="ghost"
+                size="icon"
+                className={cn('md:hidden', isTransparent && 'text-white hover:bg-white/10')}
+              >
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right">
+            <SheetContent side="right" className="w-full sm:max-w-md bg-ink text-ink-foreground border-0 p-0">
               <SheetTitle className="sr-only">Navigation menu</SheetTitle>
               <SheetDescription className="sr-only">
                 Site navigation links and contact action
               </SheetDescription>
-              <div className="flex flex-col items-center justify-center h-full space-y-8">
-                {navigationItems.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.path}
-                    onClick={(e) => handleNavigation(e, item.path, item.section)}
-                    className="text-2xl font-medium text-foreground hover:text-primary transition-colors"
-                  >
-                    {item.label}
-                  </a>
-                ))}
+              <div className="flex h-full flex-col justify-between px-8 pt-28 pb-10">
+                <nav className="space-y-6">
+                  {navigationItems.map((item) => (
+                    <div key={item.label} className="border-b border-white/10 pb-6">
+                      <a
+                        href={item.path}
+                        onClick={(e) => handleNavigation(e, item.path, item.section)}
+                        className="block font-display text-4xl font-semibold tracking-[-0.02em] text-white/90 transition-colors hover:text-white"
+                      >
+                        {item.label}
+                      </a>
+                    </div>
+                  ))}
+                </nav>
                 <Button
+                  size="xl"
+                  variant="inverse"
+                  className="w-full rounded-none"
                   onClick={() => {
                     setShowContactModal?.(true);
                     setIsMenuOpen?.(false);
                   }}
-                  className="rounded-full px-8 py-3"
                 >
                   Get Started
                 </Button>
@@ -183,7 +216,7 @@ export function Header({
             </SheetContent>
           </Sheet>
         </div>
-      </div>
-    </nav>
+      </Container>
+    </header>
   );
 }

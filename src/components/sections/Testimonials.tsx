@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Card } from '@/components/ui/card';
+import { Section, Container } from '@/components/layout/Section';
 
 const testimonials = [
   {
@@ -24,71 +24,51 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section id="testimonials" className="py-16 relative bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <Section id="testimonials" tone="surface">
+      <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold mb-4 text-foreground">What Studio Owners Say</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <h2 className="text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-primary">
+            What Studio Owners Say
+          </h2>
+          <p className="mt-4 font-display font-semibold tracking-[-0.03em] leading-[1.03] text-[clamp(2rem,5vw,4rem)]">
             Discover the difference expert maintenance makes
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="mt-16 divide-y divide-border border-y border-border md:mt-24">
           {testimonials.map((testimonial, index) => (
-            <motion.div
+            <motion.figure
               key={testimonial.name}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: index * 0.2 }}
+              className="grid gap-6 py-12 md:grid-cols-12 md:gap-12 md:py-16"
             >
-              <Card className="relative bg-card shadow-glow overflow-visible p-6 rounded-xl">
-                {/* Radial gradient background */}
-                <div className="absolute inset-0 opacity-10 rounded-xl bg-glow-radial" />
-
-                {/* Logo positioned to overlap */}
-                <div className="absolute left-1/2 -top-12 transform -translate-x-1/2">
-                  <div className="bg-white p-4 rounded-xl shadow-lg">
-                    <img
-                      src={testimonial.logo}
-                      alt={`${testimonial.role} logo`}
-                      className="h-16 w-auto rounded-lg"
-                    />
-                  </div>
-                </div>
-
-                <div className="relative pt-8">
-                  <div className="relative text-center px-8">
-                    <span
-                      className="absolute top-0 left-0 text-8xl leading-none text-primary font-serif opacity-90"
-                      style={{ transform: 'translate(-50%, -25%)' }}
-                    >
-                      "
-                    </span>
-                    <p className="text-foreground text-base leading-relaxed">{testimonial.text}</p>
-                    <span
-                      className="absolute bottom-0 right-0 text-8xl leading-none text-primary font-serif opacity-90"
-                      style={{ transform: 'translate(50%, 25%)' }}
-                    >
-                      "
-                    </span>
-                  </div>
-                  <div className="text-center mt-6">
-                    <p className="font-semibold text-foreground">{testimonial.name}</p>
-                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
+              <div className="md:col-span-3">
+                <img
+                  src={testimonial.logo}
+                  alt={`${testimonial.role} logo`}
+                  loading="lazy"
+                  className="h-9 w-auto object-contain grayscale opacity-60 transition duration-500 hover:grayscale-0 hover:opacity-100"
+                />
+                <figcaption className="mt-5">
+                  <p className="font-display text-lg font-semibold">{testimonial.name}</p>
+                  <p className="mt-1 text-xs uppercase tracking-[0.12em] text-muted-foreground">{testimonial.role}</p>
+                </figcaption>
+              </div>
+              <blockquote className="max-w-[62ch] font-serif text-xl leading-[1.5] text-foreground md:col-span-8 md:col-start-5 md:text-[1.6rem]">
+                {testimonial.text}
+              </blockquote>
+            </motion.figure>
           ))}
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

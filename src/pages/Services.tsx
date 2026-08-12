@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import { Wrench, PackageCheck, CheckCircle2, ArrowRight, AlertTriangle, ShieldAlert, DollarSign, Clock, Handshake, Settings, Star, type LucideIcon } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Container } from '@/components/layout/Section';
 
 interface ServicesProps {
   setShowContactModal?: (show: boolean) => void;
@@ -229,18 +229,21 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
         className="space-y-16"
       >
         {/* Hero Section */}
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
+        <div className="grid gap-12 pt-16 lg:grid-cols-12 lg:gap-16">
+          <div className="space-y-8 lg:col-span-6">
             <div>
-              <h2 className="text-3xl font-bold text-foreground mb-4">
-                {content.title}
-              </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed">
+              <div className="mb-4 flex items-center gap-3">
+                <IconComponent className="h-6 w-6 text-primary" />
+                <h2 className="font-display text-3xl font-semibold tracking-[-0.02em] text-foreground md:text-[2.5rem]">
+                  {content.title}
+                </h2>
+              </div>
+              <p className="text-lg leading-[1.6] text-muted-foreground">
                 {content.summary}
               </p>
             </div>
             <motion.div
-              className="space-y-4"
+              className="grid gap-x-10 gap-y-4 border-t border-border pt-8 sm:grid-cols-2"
               variants={listVariants}
               initial="hidden"
               whileInView="visible"
@@ -258,35 +261,30 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
               ))}
             </motion.div>
           </div>
-          <div className="relative max-w-md mx-auto">
-            <div className="aspect-[4/3] rounded-xl overflow-hidden">
-              <img
-                src={content.image}
-                alt={content.title}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="absolute -bottom-4 -right-4 bg-primary p-6 rounded-xl">
-              <IconComponent className="w-6 h-6 text-primary-foreground" />
-            </div>
+          <div className="lg:col-span-6">
+            <img
+              src={content.image}
+              alt={content.title}
+              loading="lazy"
+              className="aspect-[4/5] w-full object-cover"
+            />
           </div>
         </div>
 
         {/* Features Section */}
         <div>
           <h3 className="text-2xl font-bold text-foreground mb-8">Key Features</h3>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 md:divide-x md:divide-border">
             {content.features.map((feature, index) => (
               <motion.div
                 key={feature.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
+                className="md:px-8 first:md:pl-0 last:md:pr-0"
               >
-                <Card className="bg-muted/50 p-6 border-border">
-                  <h4 className="text-xl font-semibold text-foreground mb-3">{feature.title}</h4>
-                  <p className="text-muted-foreground">{feature.description}</p>
-                </Card>
+                <h4 className="font-display text-xl font-semibold text-foreground mb-3">{feature.title}</h4>
+                <p className="text-muted-foreground">{feature.description}</p>
               </motion.div>
             ))}
           </div>
@@ -294,23 +292,24 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
 
         {/* Risks Section for Why Maintenance Tab */}
         {key === 'why-maintenance' && (
-          <div>
-            <h3 className="text-2xl font-bold text-foreground mb-8">Risks of Poor Maintenance</h3>
-            <div className="grid md:grid-cols-3 gap-8">
-              {content.risks?.map((risk, index) => (
-                <motion.div
-                  key={risk.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Card className="bg-primary/10 p-6 border-primary/20">
-                    <risk.icon className="h-8 w-8 text-primary mb-4" />
-                    <h4 className="text-xl font-semibold text-foreground mb-3">{risk.title}</h4>
-                    <p className="text-muted-foreground">{risk.description}</p>
-                  </Card>
-                </motion.div>
-              ))}
+          <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen bg-ink px-6 py-20 text-ink-foreground sm:px-8 lg:px-12">
+            <div className="mx-auto max-w-[88rem]">
+              <h3 className="text-2xl font-bold text-ink-foreground mb-8">Risks of Poor Maintenance</h3>
+              <div className="grid gap-10 md:grid-cols-3 md:divide-x md:divide-white/12">
+                {content.risks?.map((risk, index) => (
+                  <motion.div
+                    key={risk.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="md:px-8 first:md:pl-0 last:md:pr-0"
+                  >
+                    <risk.icon className="h-8 w-8 text-azure mb-4" />
+                    <h4 className="text-xl font-semibold text-ink-foreground mb-3">{risk.title}</h4>
+                    <p className="text-ink-muted">{risk.description}</p>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
         )}
@@ -329,98 +328,94 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Card className="relative bg-muted/50 p-8 border-border overflow-hidden shadow-glow">
-                    {/* Radial gradient background */}
-                    <div className="absolute inset-0 opacity-10 bg-glow-radial" />
-
-                    <div className="relative">
-                      <div className="flex items-center gap-3 mb-6">
-                        {plan.icon && <plan.icon className="w-8 h-8 text-primary" />}
-                        <h4 className="text-2xl font-bold text-foreground">{plan.plan}</h4>
-                      </div>
-
-                      {/* Premier Partnership Services and Benefits */}
-                      {plan.services && plan.benefits ? (
-                        <div className="grid md:grid-cols-2 gap-8">
-                          <div>
-                            <h5 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-                              <Wrench className="w-5 h-5 text-primary" />
-                              Services Provided
-                            </h5>
-                            <motion.ul
-                              className="space-y-3 mb-8"
-                              variants={listVariants}
-                              initial="hidden"
-                              whileInView="visible"
-                              viewport={{ once: true }}
-                            >
-                              {plan.services.map((service, i) => (
-                                <motion.li
-                                  key={i}
-                                  className="flex items-center space-x-3"
-                                  variants={itemVariants}
-                                >
-                                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                                  <span className="text-muted-foreground">{service}</span>
-                                </motion.li>
-                              ))}
-                            </motion.ul>
-                          </div>
-                          <div>
-                            <h5 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-                              <Star className="w-5 h-5 text-primary" />
-                              Partnership Benefits
-                            </h5>
-                            <motion.ul
-                              className="space-y-3 mb-8"
-                              variants={listVariants}
-                              initial="hidden"
-                              whileInView="visible"
-                              viewport={{ once: true }}
-                            >
-                              {plan.benefits.map((benefit, i) => (
-                                <motion.li
-                                  key={i}
-                                  className="flex items-center space-x-3"
-                                  variants={itemVariants}
-                                >
-                                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                                  <span className="text-muted-foreground">{benefit}</span>
-                                </motion.li>
-                              ))}
-                            </motion.ul>
-                          </div>
-                        </div>
-                      ) : (
-                        <motion.ul
-                          className="space-y-3 mb-8"
-                          variants={listVariants}
-                          initial="hidden"
-                          whileInView="visible"
-                          viewport={{ once: true }}
-                        >
-                          {plan.features?.map((feature, i) => (
-                            <motion.li
-                              key={i}
-                              className="flex items-center space-x-3"
-                              variants={itemVariants}
-                            >
-                              <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                              <span className="text-muted-foreground">{feature}</span>
-                            </motion.li>
-                          ))}
-                        </motion.ul>
-                      )}
-
-                      <Button
-                        onClick={handleGetStarted}
-                        className="w-full"
-                      >
-                        Get Started
-                        <ArrowRight className="ml-2 h-5 w-5" />
-                      </Button>
+                  <div className="border border-border p-8 md:p-12">
+                    <div className="flex items-center gap-3 mb-6">
+                      {plan.icon && <plan.icon className="h-6 w-6 text-primary" />}
+                      <h4 className="font-display text-2xl md:text-3xl font-semibold text-foreground">{plan.plan}</h4>
                     </div>
-                  </Card>
+
+                    {/* Premier Partnership Services and Benefits */}
+                    {plan.services && plan.benefits ? (
+                      <div className="grid md:grid-cols-2 md:gap-12 md:divide-x md:divide-border">
+                        <div>
+                          <h5 className="mb-4 flex items-center gap-2 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                            <Wrench className="w-4 h-4 text-primary" />
+                            Services Provided
+                          </h5>
+                          <motion.ul
+                            className="space-y-3 mb-8"
+                            variants={listVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                          >
+                            {plan.services.map((service, i) => (
+                              <motion.li
+                                key={i}
+                                className="flex items-center space-x-3"
+                                variants={itemVariants}
+                              >
+                                <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                                <span className="text-muted-foreground">{service}</span>
+                              </motion.li>
+                            ))}
+                          </motion.ul>
+                        </div>
+                        <div className="md:pl-12">
+                          <h5 className="mb-4 flex items-center gap-2 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                            <Star className="w-4 h-4 text-primary" />
+                            Partnership Benefits
+                          </h5>
+                          <motion.ul
+                            className="space-y-3 mb-8"
+                            variants={listVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                          >
+                            {plan.benefits.map((benefit, i) => (
+                              <motion.li
+                                key={i}
+                                className="flex items-center space-x-3"
+                                variants={itemVariants}
+                              >
+                                <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                                <span className="text-muted-foreground">{benefit}</span>
+                              </motion.li>
+                            ))}
+                          </motion.ul>
+                        </div>
+                      </div>
+                    ) : (
+                      <motion.ul
+                        className="space-y-3 mb-8"
+                        variants={listVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                      >
+                        {plan.features?.map((feature, i) => (
+                          <motion.li
+                            key={i}
+                            className="flex items-center space-x-3"
+                            variants={itemVariants}
+                          >
+                            <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                            <span className="text-muted-foreground">{feature}</span>
+                          </motion.li>
+                        ))}
+                      </motion.ul>
+                    )}
+
+                    <Button
+                      onClick={handleGetStarted}
+                      size="xl"
+                      className="w-full rounded-none sm:w-auto"
+                    >
+                      Get Started
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -431,14 +426,14 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-background pt-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+    <div className="min-h-screen overflow-x-hidden bg-background pt-28 md:pt-36">
+      <Container className="pb-24">
         {/* Services Introduction */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+          <h1 className="font-display font-semibold tracking-[-0.03em] leading-[1.03] text-[clamp(2rem,5vw,4rem)] text-foreground lg:col-span-7">
             Our Services
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-lg leading-[1.6] text-muted-foreground lg:col-span-5">
             We provide comprehensive equipment solutions for Pilates studios, from expert maintenance
             to professional installation services. Our team ensures your studio's equipment performs
             at its peak, keeping your clients safe and satisfied.
@@ -446,16 +441,15 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
         </div>
 
         {/* Tabs */}
-        <div id="services-tabs" className="mb-12">
+        <div id="services-tabs">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="flex flex-wrap justify-center gap-4 h-auto bg-transparent p-0">
-              {Object.entries(tabContent).map(([key, { title, icon: Icon }]) => (
+            <TabsList className="mt-16 h-auto w-full justify-start gap-8 overflow-x-auto rounded-none border-b border-border bg-transparent p-0 [&::-webkit-scrollbar]:hidden">
+              {Object.entries(tabContent).map(([key, { title }]) => (
                 <TabsTrigger
                   key={key}
                   value={key}
-                  className="rounded-full px-6 py-3 border border-border data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-none hover:border-primary"
+                  className="shrink-0 whitespace-nowrap rounded-none border-b-2 border-transparent px-0 pb-4 text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-muted-foreground shadow-none data-[state=active]:border-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none"
                 >
-                  <Icon className="w-5 h-5 mr-2" />
                   {title}
                 </TabsTrigger>
               ))}
@@ -468,7 +462,7 @@ const Services = ({ setShowContactModal }: ServicesProps) => {
             ))}
           </Tabs>
         </div>
-      </div>
+      </Container>
     </div>
   );
 };
