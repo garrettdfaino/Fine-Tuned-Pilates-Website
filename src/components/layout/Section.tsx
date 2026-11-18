@@ -31,7 +31,7 @@ export function Container({ className, children, ...props }: HTMLAttributes<HTML
 
 export function Eyebrow({ className, children, ...props }: HTMLAttributes<HTMLElement>) {
   return (
-    <p className={cn('font-mono text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-muted-foreground', className)} {...props}>
+    <p className={cn('font-mono text-[0.9375rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground md:text-[1.0625rem]', className)} {...props}>
       {children}
     </p>
   );
@@ -39,7 +39,7 @@ export function Eyebrow({ className, children, ...props }: HTMLAttributes<HTMLEl
 
 export function Index({ n, className }: { n: number; className?: string }) {
   return (
-    <span className={cn('font-mono text-[0.6875rem] font-medium tabular-nums tracking-[0.1em] text-muted-foreground', className)}>
+    <span className={cn('font-mono text-[0.875rem] font-medium tabular-nums tracking-[0.1em] text-muted-foreground', className)}>
       {String(n).padStart(2, '0')}
     </span>
   );

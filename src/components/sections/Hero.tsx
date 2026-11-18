@@ -67,7 +67,7 @@ export function Hero({ setShowContactModal }: HeroProps) {
   return (
     <section id="home" className="relative isolate flex min-h-[92svh] items-end overflow-hidden bg-ink">
       <img
-        src="https://github.com/garrettdfaino/Pictures-for-FTP/blob/main/moving-6.jpg?raw=true"
+        src="/images/home-hero.jpg"
         alt=""
         aria-hidden="true"
         className="absolute inset-0 -z-10 h-full w-full object-cover object-center"
@@ -117,10 +117,10 @@ export function Hero({ setShowContactModal }: HeroProps) {
           </div>
           <div className="plate mt-14 grid grid-cols-2 divide-x divide-white/15 border border-white/15 bg-white/[0.04] backdrop-blur-sm">
             <div className="px-6 py-7">
-              <AnimatedCounter end={30} label="Studios" />
+              <AnimatedCounter end={35} label="Studios" />
             </div>
             <div className="px-6 py-7">
-              <AnimatedCounter end={220} label="Reformers Covered" />
+              <AnimatedCounter end={300} label="Reformers Covered" />
             </div>
           </div>
         </motion.div>

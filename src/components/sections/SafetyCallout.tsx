@@ -18,7 +18,7 @@ export function SafetyCallout() {
       <Container className="flex flex-col gap-3 md:flex-row md:items-center md:gap-8">
         <div className="flex items-center gap-2">
           <AlertTriangle className="h-4 w-4 shrink-0 text-brass" />
-          <span className="font-mono text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-brass">
+          <span className="font-mono text-[0.9375rem] font-semibold uppercase tracking-[0.14em] text-brass md:text-[1.0625rem]">
             Did you know?
           </span>
         </div>

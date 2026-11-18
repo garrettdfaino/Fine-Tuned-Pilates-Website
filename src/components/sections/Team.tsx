@@ -7,16 +7,16 @@ const teamMembers = [
   {
     name: "Garrett Faino",
     role: "Founder & Engineer",
-    image: "https://raw.githubusercontent.com/garrettdfaino/Pictures-for-FTP/main/garrett-1-2.JPG",
+    image: "/images/garrett-headshot.jpg",
     bio: "With years of hands-on experience working on Pilates equipment and a solid Mechanical Engineering background, Garrett is the driving force behind our operation. By combining technical expertise with a genuine passion for building strong customer relationships, Garrett ensures every client feels valued and supported. Always focused on innovation and growth, Garrett leads the team with strategic insight and a practical, results-oriented approach.",
-    certification: "Certified by the National Pilates Certification Program"
+    certification: "Certified by Body Be Well"
   },
   {
     name: "Dennis Faino",
     role: "Service Technician",
-    image: "https://raw.githubusercontent.com/garrettdfaino/Pictures-for-FTP/main/dad-1.jpg",
-    bio: "With 17 years of experience, Dennis has expertly managed the assembly, installation, maintenance, and relocation of our studios—home to the renowned STOTT and Balanced Body apparatus. His technical expertise and attention to detail ensure that every facility operates seamlessly, supporting our commitment to excellence.",
-    certification: "Certified by the National Pilates Certification Program"
+    image: "/images/team-dennis.jpg",
+    bio: "With over 17 years of hands-on experience in the Pilates industry, Dennis specializes in equipment assembly, installation, relocation, maintenance, and repair. His extensive knowledge of Pilates apparatus, combined with his technical expertise and exceptional attention to detail, allows him to diagnose and troubleshoot even the most challenging equipment issues. Dennis takes pride in getting to the root of every problem, ensuring equipment operates safely, smoothly, and reliably.",
+    certification: "Certified by Body Be Well"
   }
 ];
 
@@ -54,8 +54,8 @@ export function Team() {
               >
                 <div
                   className={cn(
-                    'group overflow-hidden',
-                    mirrored ? 'lg:col-span-6 lg:col-start-7' : 'lg:col-span-6'
+                    'group mb-8 max-w-sm overflow-hidden lg:mb-0 lg:max-w-none',
+                    mirrored ? 'lg:col-span-4 lg:col-start-9 lg:row-start-1' : 'lg:col-span-4'
                   )}
                 >
                   <img
@@ -64,11 +64,11 @@ export function Team() {
                     loading="lazy"
                     className={cn(
                       'aspect-[3/4] w-full object-cover transition-transform duration-700 ease-editorial group-hover:scale-[1.03]',
-                      member.name === "Dennis Faino" ? "object-[50%_35%]" : "object-[50%_65%]"
+                      member.name === "Dennis Faino" ? "object-[50%_35%]" : "object-center"
                     )}
                   />
                 </div>
-                <div className={cn(mirrored ? 'lg:col-span-5 lg:col-start-1' : 'lg:col-span-6')}>
+                <div className={cn(mirrored ? 'lg:col-span-7 lg:col-start-1 lg:row-start-1 lg:justify-self-end' : 'lg:col-span-7 lg:col-start-6')}>
                   <p className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-primary">
                     {String(index + 1).padStart(2, '0')} / {member.role}
                   </p>

@@ -14,7 +14,7 @@ export function Footer({ setShowContactModal }: FooterProps) {
           <div className="col-span-2 md:col-span-5">
             <div className="flex items-center space-x-3 mb-6">
               <img
-                src="https://raw.githubusercontent.com/garrettdfaino/Pictures-for-FTP/main/Fine%20Tuned%20Pilates_black-cropped.PNG"
+                src="/images/logo.png"
                 alt="Fine Tuned Pilates"
                 className="h-9 w-auto invert"
               />

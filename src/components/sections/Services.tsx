@@ -31,7 +31,7 @@ export function Services() {
     <Section id="services" tone="ink">
       <Container>
         <div className="grid gap-8 lg:grid-cols-12">
-          <h2 className="font-mono text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-tick lg:col-span-12">
+          <h2 className="font-mono text-[0.9375rem] font-semibold uppercase tracking-[0.14em] text-tick md:text-[1.0625rem] lg:col-span-12">
             Our Services
           </h2>
           <p className="font-display font-semibold tracking-[-0.01em] leading-[0.95] text-[clamp(2.25rem,6vw,4.5rem)] text-white lg:col-span-8">

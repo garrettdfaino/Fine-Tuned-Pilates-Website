@@ -86,7 +86,7 @@ export function Header({
           <div className="flex justify-between h-20 items-center">
             <Link to="/" className="flex items-center space-x-3">
               <img
-                src="https://raw.githubusercontent.com/garrettdfaino/Pictures-for-FTP/main/Fine%20Tuned%20Pilates_black-cropped.PNG"
+                src="/images/logo.png"
                 alt="Fine Tuned Pilates"
                 className="h-12 w-auto"
               />
@@ -112,7 +112,7 @@ export function Header({
       <div
         className={cn(
           'relative transition-colors duration-300 ease-editorial',
-          isTransparent ? 'bg-transparent' : 'bg-background/92 backdrop-blur-md'
+          isTransparent ? 'bg-transparent' : 'bg-background/95 backdrop-blur-md'
         )}
       >
         <Container>
@@ -124,7 +124,7 @@ export function Header({
           >
             <Link to="/" className="flex items-center space-x-3">
               <img
-                src="https://raw.githubusercontent.com/garrettdfaino/Pictures-for-FTP/main/Fine%20Tuned%20Pilates_black-cropped.PNG"
+                src="/images/logo.png"
                 alt="Fine Tuned Pilates"
                 className={cn('h-9 w-auto transition-all duration-300', isTransparent && 'invert')}
               />

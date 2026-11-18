@@ -14,7 +14,7 @@ export function About() {
         <div className="lg:col-span-2">
           <div className="lg:sticky lg:top-32">
             <Index n={1} className="mb-2 block" />
-            <h2 className="font-mono text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+            <h2 className="font-mono text-[0.9375rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground md:text-[1.0625rem]">
               Our Story
             </h2>
           </div>
@@ -68,9 +68,9 @@ export function About() {
 
         <div className="lg:col-span-5">
           <img
-            src="https://raw.githubusercontent.com/garrettdfaino/Pictures-for-FTP/main/group-1.jpg"
-            alt="Pilates Studio Equipment"
-            className="aspect-[4/5] w-full object-cover lg:-mr-14"
+            src="/images/our-story-team.jpg"
+            alt="Dennis and Garrett Faino of Fine Tuned Pilates"
+            className="aspect-[4/5] w-full object-cover object-[50%_30%] lg:-mr-14"
             loading="lazy"
           />
         </div>
