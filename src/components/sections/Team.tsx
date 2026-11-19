@@ -14,7 +14,7 @@ const teamMembers = [
   {
     name: "Dennis Faino",
     role: "Service Technician",
-    image: "/images/team-dennis.jpg",
+    image: "/images/dennis-headshot.jpg",
     bio: "With over 17 years of hands-on experience in the Pilates industry, Dennis specializes in equipment assembly, installation, relocation, maintenance, and repair. His extensive knowledge of Pilates apparatus, combined with his technical expertise and exceptional attention to detail, allows him to diagnose and troubleshoot even the most challenging equipment issues. Dennis takes pride in getting to the root of every problem, ensuring equipment operates safely, smoothly, and reliably.",
     certification: "Certified by Body Be Well"
   }
@@ -64,7 +64,7 @@ export function Team() {
                     loading="lazy"
                     className={cn(
                       'aspect-[3/4] w-full object-cover transition-transform duration-700 ease-editorial group-hover:scale-[1.03]',
-                      member.name === "Dennis Faino" ? "object-[50%_35%]" : "object-center"
+                      "object-center"
                     )}
                   />
                 </div>
